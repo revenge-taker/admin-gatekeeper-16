@@ -4,6 +4,9 @@ import { ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
+import { PasswordField } from "@/components/PasswordField";
+import { AuthShell } from "@/components/AuthShell";
+
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
