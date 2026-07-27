@@ -1,6 +1,8 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard,
+  LayoutGrid,
+
   Users,
   LogOut,
   ShieldCheck,
@@ -19,8 +21,10 @@ type AdminProfile = {
 
 const NAV = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/admin/apps", label: "Apps", icon: LayoutGrid },
   { to: "/admin/users", label: "Users", icon: Users },
 ] as const;
+
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
