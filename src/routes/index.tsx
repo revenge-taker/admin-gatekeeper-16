@@ -56,62 +56,54 @@ function LoginPage() {
   };
 
   return (
-    <main className="auth-canvas flex min-h-screen items-center justify-center px-4 py-12">
-      <div className="panel w-full max-w-md p-8">
-        <div className="mb-8 text-center">
-          <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
-            <LockKeyhole className="h-6 w-6 text-primary" />
-          </span>
-          <h1 className="text-2xl font-bold text-card-foreground">Welcome back</h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">
-            Sign in to continue to your dashboard
-          </p>
+    <AuthShell
+      icon={<LockKeyhole className="h-6 w-6 text-primary" />}
+      eyebrow="Nexus Portal"
+      title="Welcome back"
+      subtitle="Sign in to continue to your dashboard"
+      brandTitle="Your secure workspace, one sign-in away."
+      brandCopy="Nexus Portal keeps member accounts, roles and access in one calm, controlled place."
+      highlights={[
+        "Encrypted password authentication",
+        "Role-aware access to every page",
+        "Accounts issued by your administrator",
+      ]}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            autoComplete="username"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@company.com"
+            className="field field-focus"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              autoComplete="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
-              className="field field-focus"
-            />
-          </div>
+        <div>
+          <label htmlFor="password" className="mb-1.5 block text-sm font-medium">
+            Password
+          </label>
+          <PasswordField id="password" value={password} onChange={setPassword} />
+        </div>
 
-          <div>
-            <label htmlFor="password" className="mb-1.5 block text-sm font-medium">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="field field-focus"
-            />
-          </div>
+        {error && (
+          <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {error}
+          </p>
+        )}
 
-          {error && (
-            <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">
-              {error}
-            </p>
-          )}
-
-          <button type="submit" disabled={loading} className="btn-primary w-full">
-            <ButtonSpinnerLabel loading={loading} />
-          </button>
-        </form>
-      </div>
-    </main>
+        <button type="submit" disabled={loading} className="btn-primary w-full">
+          <ButtonSpinnerLabel loading={loading} />
+        </button>
+      </form>
+    </AuthShell>
   );
 }
+
