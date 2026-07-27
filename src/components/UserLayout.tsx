@@ -20,10 +20,11 @@ export function UserLayout({ children }: { children: ReactNode }) {
 
   const nav = (
     <>
-      <div className="flex items-center gap-2 px-1 text-sidebar-foreground">
+      <div className="hidden items-center gap-2 px-1 text-sidebar-foreground md:flex">
         <Sparkles className="h-5 w-5 text-sidebar-primary" />
         <span className="font-display text-lg font-semibold">Nexus Portal</span>
       </div>
+
 
       <nav className="mt-6 flex flex-1 flex-col gap-1">
         {NAV.map(({ to, label, icon: Icon }) => {
