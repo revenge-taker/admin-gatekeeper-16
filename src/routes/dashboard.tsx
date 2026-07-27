@@ -1,8 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { LogOut, Mail, Phone, BadgeCheck, User } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { Mail, Phone, BadgeCheck, User } from "lucide-react";
+import { UserLayout } from "@/components/UserLayout";
 import { getMyProfile } from "@/lib/admin.functions";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardPage() {
-  const navigate = useNavigate();
   const { ready } = useProtectedRoute("user");
   const fetchProfile = useServerFn(getMyProfile);
 
@@ -37,10 +36,6 @@ function DashboardPage() {
     enabled: ready,
   });
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    navigate({ to: "/", replace: true });
-  };
 
   if (!ready) {
     return (
