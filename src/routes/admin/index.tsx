@@ -4,6 +4,9 @@ import { ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
+import { PasswordField } from "@/components/PasswordField";
+import { AuthShell } from "@/components/AuthShell";
+
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -71,62 +74,54 @@ function AdminLoginPage() {
   };
 
   return (
-    <main className="auth-canvas flex min-h-screen items-center justify-center px-4 py-12">
-      <div className="panel w-full max-w-md p-8">
-        <div className="mb-8 text-center">
-          <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
-            <ShieldCheck className="h-6 w-6 text-primary" />
-          </span>
-          <h1 className="text-2xl font-bold text-card-foreground">Administrator access</h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">
-            Authorised personnel only
-          </p>
+    <AuthShell
+      icon={<ShieldCheck className="h-6 w-6 text-primary" />}
+      eyebrow="Restricted area"
+      title="Administrator access"
+      subtitle="Authorised personnel only"
+      brandTitle="Control the portal from a single console."
+      brandCopy="Sign in with an administrator account to manage members, roles and portal activity."
+      highlights={[
+        "Admin-only credential check",
+        "Create and remove member accounts",
+        "Live portal statistics",
+      ]}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="admin-email" className="mb-1.5 block text-sm font-medium">
+            Email
+          </label>
+          <input
+            id="admin-email"
+            type="email"
+            required
+            autoComplete="username"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="admin@admin.com"
+            className="field field-focus"
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="admin-email" className="mb-1.5 block text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="admin-email"
-              type="email"
-              required
-              autoComplete="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@admin.com"
-              className="field field-focus"
-            />
-          </div>
+        <div>
+          <label htmlFor="admin-password" className="mb-1.5 block text-sm font-medium">
+            Password
+          </label>
+          <PasswordField id="admin-password" value={password} onChange={setPassword} />
+        </div>
 
-          <div>
-            <label htmlFor="admin-password" className="mb-1.5 block text-sm font-medium">
-              Password
-            </label>
-            <input
-              id="admin-password"
-              type="password"
-              required
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="field field-focus"
-            />
-          </div>
+        {error && (
+          <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+            {error}
+          </p>
+        )}
 
-          {error && (
-            <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
-              {error}
-            </p>
-          )}
-
-          <button type="submit" disabled={loading} className="btn-primary w-full">
-            <ButtonSpinnerLabel loading={loading} />
-          </button>
-        </form>
-      </div>
-    </main>
+        <button type="submit" disabled={loading} className="btn-primary w-full">
+          <ButtonSpinnerLabel loading={loading} />
+        </button>
+      </form>
+    </AuthShell>
   );
 }
+
