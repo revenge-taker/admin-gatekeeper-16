@@ -1,8 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { LogOut, Mail, Phone, BadgeCheck, User } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { Mail, Phone, BadgeCheck, User } from "lucide-react";
+import { UserLayout } from "@/components/UserLayout";
 import { getMyProfile } from "@/lib/admin.functions";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardPage() {
-  const navigate = useNavigate();
   const { ready } = useProtectedRoute("user");
   const fetchProfile = useServerFn(getMyProfile);
 
@@ -37,10 +36,6 @@ function DashboardPage() {
     enabled: ready,
   });
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    navigate({ to: "/", replace: true });
-  };
 
   if (!ready) {
     return (
@@ -58,43 +53,28 @@ function DashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4">
-          <span className="font-display text-lg font-semibold">Nexus Portal</span>
-          <button
-            onClick={logout}
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-secondary"
-          >
-            <LogOut className="h-4 w-4" />
-            Logout
-          </button>
-        </div>
-      </header>
+    <UserLayout>
+      <h1 className="text-3xl font-bold">
+        Welcome back, {profile?.name || profile?.email || "there"}
+      </h1>
+      <p className="mt-2 text-muted-foreground">
+        Here is the information we have on file for your account.
+      </p>
 
-      <main className="mx-auto max-w-4xl px-5 py-10">
-        <h1 className="text-3xl font-bold">
-          Welcome back, {profile?.name || profile?.email || "there"}
-        </h1>
-        <p className="mt-2 text-muted-foreground">
-          Here is the information we have on file for your account.
-        </p>
-
-        <section className="panel mt-8 p-6">
-          <h2 className="text-lg font-semibold">Your details</h2>
-          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
-            {rows.map(({ icon: Icon, label, value }) => (
-              <div key={label} className="rounded-xl bg-secondary/60 p-4">
-                <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                  <Icon className="h-3.5 w-3.5" />
-                  {label}
-                </dt>
-                <dd className="mt-1.5 truncate text-base font-semibold">{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      </main>
-    </div>
+      <section className="panel mt-8 p-6">
+        <h2 className="text-lg font-semibold">Your details</h2>
+        <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+          {rows.map(({ icon: Icon, label, value }) => (
+            <div key={label} className="rounded-xl bg-secondary/60 p-4">
+              <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </dt>
+              <dd className="mt-1.5 truncate text-base font-semibold">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    </UserLayout>
   );
 }

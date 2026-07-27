@@ -1,0 +1,87 @@
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { LayoutDashboard, LayoutGrid, LogOut, Menu, Sparkles, X } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+const NAV = [
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/apps", label: "My Apps", icon: LayoutGrid },
+] as const;
+
+export function UserLayout({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [open, setOpen] = useState(false);
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/", replace: true });
+  };
+
+  const nav = (
+    <>
+      <div className="hidden items-center gap-2 px-1 text-sidebar-foreground md:flex">
+        <Sparkles className="h-5 w-5 text-sidebar-primary" />
+        <span className="font-display text-lg font-semibold">Nexus Portal</span>
+      </div>
+
+
+      <nav className="mt-6 flex flex-1 flex-col gap-1">
+        {NAV.map(({ to, label, icon: Icon }) => {
+          const active = pathname === to || pathname.startsWith(`${to}/`);
+          return (
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                active
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60"
+              }`}
+            >
+              <Icon className="h-4 w-4" />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <button
+        onClick={logout}
+        className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-sidebar-primary px-3 py-2 text-sm font-semibold text-sidebar-primary-foreground transition-opacity hover:opacity-90"
+      >
+        <LogOut className="h-4 w-4" />
+        Logout
+      </button>
+    </>
+  );
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background md:flex-row">
+      <div className="flex items-center justify-between border-b border-sidebar-border bg-sidebar p-4 md:hidden">
+        <div className="flex items-center gap-2 text-sidebar-foreground">
+          <Sparkles className="h-5 w-5 text-sidebar-primary" />
+          <span className="font-display font-semibold">Nexus Portal</span>
+        </div>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="rounded-lg p-2 text-sidebar-foreground hover:bg-sidebar-accent"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      <aside
+        className={`flex-col border-r border-sidebar-border bg-sidebar p-5 text-sidebar-foreground md:flex md:min-h-screen md:w-64 ${
+          open ? "flex" : "hidden"
+        }`}
+      >
+        {nav}
+      </aside>
+
+      <main className="flex-1 p-5 md:p-10">{children}</main>
+    </div>
+  );
+}
