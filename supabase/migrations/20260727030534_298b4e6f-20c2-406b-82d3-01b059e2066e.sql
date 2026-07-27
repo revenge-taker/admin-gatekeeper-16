@@ -1,0 +1,4 @@
+CREATE POLICY "Authenticated can read app logos" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'app-logos');
+CREATE POLICY "Admins can upload app logos" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'app-logos' AND EXISTS (SELECT 1 FROM public.user_roles ur WHERE ur.user_id = auth.uid() AND ur.role = 'admin'::app_role));
+CREATE POLICY "Admins can update app logos" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'app-logos' AND EXISTS (SELECT 1 FROM public.user_roles ur WHERE ur.user_id = auth.uid() AND ur.role = 'admin'::app_role));
+CREATE POLICY "Admins can delete app logos" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'app-logos' AND EXISTS (SELECT 1 FROM public.user_roles ur WHERE ur.user_id = auth.uid() AND ur.role = 'admin'::app_role));
