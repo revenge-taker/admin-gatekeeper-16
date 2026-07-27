@@ -4,8 +4,6 @@ import {
   Users,
   LogOut,
   ShieldCheck,
-  UserCircle,
-  ChevronDown,
   X,
   Menu,
 } from "lucide-react";
