@@ -101,7 +101,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
         <nav className="flex flex-1 flex-col gap-1">
           {NAV.map(({ to, label, icon: Icon }) => {
-            const active = pathname === to;
+            const active = pathname === to || pathname.startsWith(`${to}/`);
             return (
               <Link
                 key={to}
