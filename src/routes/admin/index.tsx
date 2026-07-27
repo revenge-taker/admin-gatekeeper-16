@@ -1,31 +1,32 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { LockKeyhole } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Sign In | Nexus Portal" },
+      { title: "Administrator Access | Nexus Portal" },
       {
         name: "description",
-        content: "Secure sign-in to the Nexus Portal member area. Enter your email and password to access your account dashboard.",
+        content: "Restricted administrator sign-in for the Nexus Portal control panel.",
       },
-      { property: "og:title", content: "Sign In | Nexus Portal" },
+      { property: "og:title", content: "Administrator Access | Nexus Portal" },
       {
         property: "og:description",
-        content: "Secure sign-in to the Nexus Portal member area.",
+        content: "Restricted administrator sign-in for the Nexus Portal control panel.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: LoginPage,
+  component: AdminLoginPage,
 });
 
-function LoginPage() {
+function AdminLoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,18 +42,32 @@ function LoginPage() {
     setError("");
     setLoading(true);
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
       email: email.trim(),
       password,
     });
 
-    if (authError) {
+    if (authError || !data.user) {
       setLoading(false);
       setError("Invalid email or password");
       return;
     }
 
-    navigate({ to: "/dashboard", replace: true });
+    const { data: roleRow } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", data.user.id)
+      .eq("role", "admin")
+      .maybeSingle();
+
+    if (!roleRow) {
+      await supabase.auth.signOut();
+      setLoading(false);
+      setError("Access Denied - Admins Only");
+      return;
+    }
+
+    navigate({ to: "/admin/dashboard", replace: true });
   };
 
   return (
@@ -60,37 +75,37 @@ function LoginPage() {
       <div className="panel w-full max-w-md p-8">
         <div className="mb-8 text-center">
           <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary">
-            <LockKeyhole className="h-6 w-6 text-primary" />
+            <ShieldCheck className="h-6 w-6 text-primary" />
           </span>
-          <h1 className="text-2xl font-bold text-card-foreground">Welcome back</h1>
+          <h1 className="text-2xl font-bold text-card-foreground">Administrator access</h1>
           <p className="mt-1.5 text-sm text-muted-foreground">
-            Sign in to continue to your dashboard
+            Authorised personnel only
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
+            <label htmlFor="admin-email" className="mb-1.5 block text-sm font-medium">
               Email
             </label>
             <input
-              id="email"
+              id="admin-email"
               type="email"
               required
               autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
+              placeholder="admin@admin.com"
               className="field field-focus"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-1.5 block text-sm font-medium">
+            <label htmlFor="admin-password" className="mb-1.5 block text-sm font-medium">
               Password
             </label>
             <input
-              id="password"
+              id="admin-password"
               type="password"
               required
               autoComplete="current-password"
@@ -102,7 +117,7 @@ function LoginPage() {
           </div>
 
           {error && (
-            <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
               {error}
             </p>
           )}
