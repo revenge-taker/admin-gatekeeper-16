@@ -14,6 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
+      apps: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          logo_url: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          logo_url?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          logo_url?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      categories: {
+        Row: {
+          app_id: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          app_id: string
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          app_id?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
