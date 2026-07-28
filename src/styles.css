@@ -181,7 +181,7 @@
   right: -4rem;
   height: 20rem;
   width: 20rem;
-  background: oklch(0.72 0.13 190 / 0.35);
+  background: oklch(0.586 0.222 17.6 / 0.4);
 }
 
 @utility auth-orb-b {
@@ -189,7 +189,7 @@
   left: -6rem;
   height: 24rem;
   width: 24rem;
-  background: oklch(0.46 0.14 265 / 0.4);
+  background: oklch(0.4 0.16 12 / 0.45);
 }
 
 
@@ -198,13 +198,24 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-panel);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+@utility glow-hover {
+  &:hover {
+    border-color: oklch(0.586 0.222 17.6 / 0.6);
+    box-shadow: var(--glow-red);
+  }
 }
 
 @utility field {
   width: 100%;
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-input);
-  background-color: var(--color-background);
+  background-color: oklch(0.175 0.004 20);
   padding: 0.7rem 0.9rem;
   font-size: 0.925rem;
   color: var(--color-foreground);
@@ -217,7 +228,7 @@
 @utility field-focus {
   &:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px oklch(0.44 0.115 249 / 0.15);
+    box-shadow: 0 0 0 3px oklch(0.586 0.222 17.6 / 0.22);
   }
 }
 
@@ -230,10 +241,13 @@
   color: var(--color-primary-foreground);
   font-weight: 600;
   padding: 0.7rem 1.1rem;
-  transition: opacity 0.15s ease;
+  transition:
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 
   &:hover:not(:disabled) {
-    opacity: 0.9;
+    filter: brightness(1.08);
+    box-shadow: 0 10px 30px -10px oklch(0.586 0.222 17.6 / 0.8);
   }
 
   &:disabled {
@@ -241,4 +255,27 @@
     cursor: not-allowed;
   }
 }
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-foreground);
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: oklch(0.586 0.222 17.6 / 0.6);
+    box-shadow: var(--glow-red);
+  }
+}
+
 
