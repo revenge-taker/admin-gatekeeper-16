@@ -18,6 +18,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
+import { Route as AdminProductsIndexRouteImport } from './routes/admin/products/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
 import { Route as AdminAppsAppIdIndexRouteImport } from './routes/admin/apps/$appId/index'
 import { Route as AdminAppsAppIdCustomFormRouteImport } from './routes/admin/apps/$appId/custom-form'
@@ -68,6 +69,11 @@ const AppsAppIdIndexRoute = AppsAppIdIndexRouteImport.update({
   path: '/apps/$appId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProductsIndexRoute = AdminProductsIndexRouteImport.update({
+  id: '/admin/products/',
+  path: '/admin/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminAppsIndexRoute = AdminAppsIndexRouteImport.update({
   id: '/admin/apps/',
   path: '/admin/apps/',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
   '/apps/$appId/': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
   '/admin/apps': typeof AdminAppsIndexRoute
+  '/admin/products': typeof AdminProductsIndexRoute
   '/apps/$appId': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId': typeof AdminAppsAppIdIndexRoute
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
   '/apps/$appId/': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/apps/'
     | '/admin/apps/'
+    | '/admin/products/'
     | '/apps/$appId/'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apps'
     | '/admin/apps'
+    | '/admin/products'
     | '/apps/$appId'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/apps/'
     | '/admin/apps/'
+    | '/admin/products/'
     | '/apps/$appId/'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
   AdminAppsIndexRoute: typeof AdminAppsIndexRoute
+  AdminProductsIndexRoute: typeof AdminProductsIndexRoute
   AppsAppIdIndexRoute: typeof AppsAppIdIndexRoute
   AdminAppsAppIdCustomFormRoute: typeof AdminAppsAppIdCustomFormRoute
   AdminAppsAppIdIndexRoute: typeof AdminAppsAppIdIndexRoute
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsAppIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/products/': {
+      id: '/admin/products/'
+      path: '/admin/products'
+      fullPath: '/admin/products/'
+      preLoaderRoute: typeof AdminProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/apps/': {
       id: '/admin/apps/'
       path: '/admin/apps'
@@ -307,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
   AdminAppsIndexRoute: AdminAppsIndexRoute,
+  AdminProductsIndexRoute: AdminProductsIndexRoute,
   AppsAppIdIndexRoute: AppsAppIdIndexRoute,
   AdminAppsAppIdCustomFormRoute: AdminAppsAppIdCustomFormRoute,
   AdminAppsAppIdIndexRoute: AdminAppsAppIdIndexRoute,
