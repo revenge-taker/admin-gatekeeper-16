@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
@@ -50,6 +51,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
+  id: '/admin/global-template',
+  path: '/admin/global-template',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
     | '/admin/'
     | '/apps/'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
     | '/admin'
     | '/apps'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
     | '/admin/'
     | '/apps/'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/global-template': {
+      id: '/admin/global-template'
+      path: '/admin/global-template'
+      fullPath: '/admin/global-template'
+      preLoaderRoute: typeof AdminGlobalTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
