@@ -8,12 +8,12 @@ import { listApps } from "@/lib/apps";
 export const Route = createFileRoute("/apps/")({
   head: () => ({
     meta: [
-      { title: "My Apps | Nexus Portal" },
+      { title: "My Apps | DEVILLEDGER" },
       {
         name: "description",
-        content: "Browse the apps available to you inside Nexus Portal.",
+        content: "Browse the apps available to you inside DEVILLEDGER.",
       },
-      { property: "og:title", content: "My Apps | Nexus Portal" },
+      { property: "og:title", content: "My Apps | DEVILLEDGER" },
       { property: "og:description", content: "Browse the apps available to your account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -11,15 +11,15 @@ import { AuthShell } from "@/components/AuthShell";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sign In | Nexus Portal" },
+      { title: "Sign In | DEVILLEDGER" },
       {
         name: "description",
-        content: "Secure sign-in to the Nexus Portal member area. Enter your email and password to access your account dashboard.",
+        content: "Secure sign-in to the DEVILLEDGER member area. Enter your email and password to access your account dashboard.",
       },
-      { property: "og:title", content: "Sign In | Nexus Portal" },
+      { property: "og:title", content: "Sign In | DEVILLEDGER" },
       {
         property: "og:description",
-        content: "Secure sign-in to the Nexus Portal member area.",
+        content: "Secure sign-in to the DEVILLEDGER member area.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -61,11 +61,11 @@ function LoginPage() {
   return (
     <AuthShell
       icon={<LockKeyhole className="h-6 w-6 text-primary" />}
-      eyebrow="Nexus Portal"
+      eyebrow="DEVILLEDGER"
       title="Welcome back"
       subtitle="Sign in to continue to your dashboard"
       brandTitle="Your secure workspace, one sign-in away."
-      brandCopy="Nexus Portal keeps member accounts, roles and access in one calm, controlled place."
+      brandCopy="DEVILLEDGER keeps member accounts, roles and access in one calm, controlled place."
       highlights={[
         "Encrypted password authentication",
         "Role-aware access to every page",

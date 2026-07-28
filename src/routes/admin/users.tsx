@@ -10,15 +10,15 @@ import { useProtectedRoute } from "@/lib/use-protected-route";
 export const Route = createFileRoute("/admin/users")({
   head: () => ({
     meta: [
-      { title: "User Management | Nexus Portal" },
+      { title: "User Management | DEVILLEDGER" },
       {
         name: "description",
-        content: "Create and remove Nexus Portal accounts from the administrator user management console.",
+        content: "Create and remove DEVILLEDGER accounts from the administrator user management console.",
       },
-      { property: "og:title", content: "User Management | Nexus Portal" },
+      { property: "og:title", content: "User Management | DEVILLEDGER" },
       {
         property: "og:description",
-        content: "Create and remove Nexus Portal accounts.",
+        content: "Create and remove DEVILLEDGER accounts.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

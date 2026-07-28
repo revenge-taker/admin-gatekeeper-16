@@ -9,15 +9,15 @@ import { useProtectedRoute } from "@/lib/use-protected-route";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Your Dashboard | Nexus Portal" },
+      { title: "Your Dashboard | DEVILLEDGER" },
       {
         name: "description",
-        content: "View your Nexus Portal account details including name, email, role and phone number.",
+        content: "View your DEVILLEDGER account details including name, email, role and phone number.",
       },
-      { property: "og:title", content: "Your Dashboard | Nexus Portal" },
+      { property: "og:title", content: "Your Dashboard | DEVILLEDGER" },
       {
         property: "og:description",
-        content: "View your Nexus Portal account details in one place.",
+        content: "View your DEVILLEDGER account details in one place.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
