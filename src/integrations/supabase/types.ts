@@ -67,6 +67,170 @@ export type Database = {
           },
         ]
       }
+      category_fields: {
+        Row: {
+          app_id: string
+          category_id: string
+          created_at: string
+          field_type: string
+          id: string
+          label: string
+          options: Json
+          required: boolean
+        }
+        Insert: {
+          app_id: string
+          category_id: string
+          created_at?: string
+          field_type?: string
+          id?: string
+          label: string
+          options?: Json
+          required?: boolean
+        }
+        Update: {
+          app_id?: string
+          category_id?: string
+          created_at?: string
+          field_type?: string
+          id?: string
+          label?: string
+          options?: Json
+          required?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "category_fields_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "category_fields_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      custom_app_fields: {
+        Row: {
+          app_id: string
+          created_at: string
+          field_type: string
+          id: string
+          label: string
+          options: Json
+          required: boolean
+        }
+        Insert: {
+          app_id: string
+          created_at?: string
+          field_type?: string
+          id?: string
+          label: string
+          options?: Json
+          required?: boolean
+        }
+        Update: {
+          app_id?: string
+          created_at?: string
+          field_type?: string
+          id?: string
+          label?: string
+          options?: Json
+          required?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_app_fields_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      global_fields: {
+        Row: {
+          created_at: string
+          field_type: string
+          id: string
+          label: string
+          options: Json
+          required: boolean
+        }
+        Insert: {
+          created_at?: string
+          field_type?: string
+          id?: string
+          label: string
+          options?: Json
+          required?: boolean
+        }
+        Update: {
+          created_at?: string
+          field_type?: string
+          id?: string
+          label?: string
+          options?: Json
+          required?: boolean
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          added_by: string
+          app_id: string
+          category_id: string
+          created_at: string
+          data: Json
+          id: string
+          rejection_reason: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          added_by: string
+          app_id: string
+          category_id: string
+          created_at?: string
+          data?: Json
+          id?: string
+          rejection_reason?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string
+          app_id?: string
+          category_id?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          rejection_reason?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
