@@ -6,7 +6,7 @@ import { AppLogo } from "@/components/AppCard";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { getApp } from "@/lib/apps";
 
-export const Route = createFileRoute("/apps/$appId")({
+export const Route = createFileRoute("/apps/$appId/")({
   head: () => ({
     meta: [
       { title: "App Details | Nexus Portal" },
