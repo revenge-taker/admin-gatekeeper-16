@@ -65,47 +65,50 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.976 0.005 236);
-  --foreground: oklch(0.23 0.045 253);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.23 0.045 253);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.23 0.045 253);
-  --primary: oklch(0.44 0.115 249);
-  --primary-foreground: oklch(0.985 0.008 240);
-  --secondary: oklch(0.945 0.014 240);
-  --secondary-foreground: oklch(0.3 0.05 252);
-  --muted: oklch(0.955 0.01 240);
-  --muted-foreground: oklch(0.53 0.03 247);
-  --accent: oklch(0.72 0.13 190);
-  --accent-foreground: oklch(0.21 0.05 250);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.985 0.008 240);
-  --border: oklch(0.9 0.012 243);
-  --input: oklch(0.9 0.012 243);
-  --ring: oklch(0.44 0.115 249);
-  --chart-1: oklch(0.44 0.115 249);
-  --chart-2: oklch(0.72 0.13 190);
-  --chart-3: oklch(0.6 0.1 250);
+  /* DEVILLEDGER — Luxury Devil theme */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.963 0.007 106);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.963 0.007 106);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.963 0.007 106);
+  --primary: oklch(0.586 0.222 17.6);
+  --primary-foreground: oklch(0.98 0.005 106);
+  --secondary: oklch(0.25 0.008 20);
+  --secondary-foreground: oklch(0.93 0.006 106);
+  --muted: oklch(0.24 0.006 20);
+  --muted-foreground: oklch(0.68 0.012 40);
+  --accent: oklch(0.586 0.222 17.6);
+  --accent-foreground: oklch(0.98 0.005 106);
+  --destructive: oklch(0.586 0.222 17.6);
+  --destructive-foreground: oklch(0.98 0.005 106);
+  --border: oklch(0.29 0.012 20);
+  --input: oklch(0.29 0.012 20);
+  --ring: oklch(0.586 0.222 17.6);
+  --chart-1: oklch(0.586 0.222 17.6);
+  --chart-2: oklch(0.72 0.16 30);
+  --chart-3: oklch(0.5 0.15 15);
   --chart-4: oklch(0.8 0.12 85);
-  --chart-5: oklch(0.62 0.15 20);
-  --sidebar: oklch(0.27 0.055 254);
-  --sidebar-foreground: oklch(0.9 0.02 240);
-  --sidebar-primary: oklch(0.72 0.13 190);
-  --sidebar-primary-foreground: oklch(0.2 0.05 250);
-  --sidebar-accent: oklch(0.34 0.06 254);
-  --sidebar-accent-foreground: oklch(0.97 0.01 240);
-  --sidebar-border: oklch(0.36 0.05 254);
-  --sidebar-ring: oklch(0.72 0.13 190);
+  --chart-5: oklch(0.4 0.1 20);
+  --sidebar: oklch(0.175 0.004 20);
+  --sidebar-foreground: oklch(0.93 0.006 106);
+  --sidebar-primary: oklch(0.586 0.222 17.6);
+  --sidebar-primary-foreground: oklch(0.98 0.005 106);
+  --sidebar-accent: oklch(0.27 0.02 18);
+  --sidebar-accent-foreground: oklch(0.97 0.005 106);
+  --sidebar-border: oklch(0.28 0.014 20);
+  --sidebar-ring: oklch(0.586 0.222 17.6);
 
   --gradient-auth: linear-gradient(
     150deg,
-    oklch(0.27 0.055 254) 0%,
-    oklch(0.36 0.09 250) 55%,
-    oklch(0.46 0.1 205) 100%
+    oklch(0.16 0.01 20) 0%,
+    oklch(0.28 0.09 18) 55%,
+    oklch(0.45 0.18 17) 100%
   );
-  --shadow-panel: 0 24px 60px -24px oklch(0.27 0.055 254 / 0.45);
+  --shadow-panel: 0 24px 60px -28px oklch(0 0 0 / 0.85);
+  --glow-red: 0 0 0 1px oklch(0.586 0.222 17.6 / 0.5), 0 12px 40px -12px oklch(0.586 0.222 17.6 / 0.55);
 }
+
 
 
 .dark {
