@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { LockKeyhole } from "lucide-react";
+import { DevilLogo } from "@/components/DevilLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
@@ -60,7 +60,7 @@ function LoginPage() {
 
   return (
     <AuthShell
-      icon={<LockKeyhole className="h-6 w-6 text-primary" />}
+      icon={<DevilLogo className="h-6 w-6 text-primary" />}
       eyebrow="DEVILLEDGER"
       title="Welcome back"
       subtitle="Sign in to continue to your dashboard"

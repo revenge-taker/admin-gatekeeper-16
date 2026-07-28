@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import { DevilLogo } from "@/components/DevilLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
@@ -75,7 +75,7 @@ function AdminLoginPage() {
 
   return (
     <AuthShell
-      icon={<ShieldCheck className="h-6 w-6 text-primary" />}
+      icon={<DevilLogo className="h-6 w-6 text-primary" />}
       eyebrow="Restricted area"
       title="Administrator access"
       subtitle="Authorised personnel only"
