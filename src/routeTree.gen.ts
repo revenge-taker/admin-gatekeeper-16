@@ -20,6 +20,7 @@ import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
 import { Route as AdminAppsAppIdIndexRouteImport } from './routes/admin/apps/$appId/index'
 import { Route as AdminAppsAppIdCustomFormRouteImport } from './routes/admin/apps/$appId/custom-form'
+import { Route as AdminAppsAppIdCategoryCategoryIdFieldsRouteImport } from './routes/admin/apps/$appId/category/$categoryId/fields'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -77,6 +78,12 @@ const AdminAppsAppIdCustomFormRoute =
     path: '/admin/apps/$appId/custom-form',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminAppsAppIdCategoryCategoryIdFieldsRoute =
+  AdminAppsAppIdCategoryCategoryIdFieldsRouteImport.update({
+    id: '/admin/apps/$appId/category/$categoryId/fields',
+    path: '/admin/apps/$appId/category/$categoryId/fields',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/apps/$appId/': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,6 +111,7 @@ export interface FileRoutesByTo {
   '/apps/$appId': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,6 +126,7 @@ export interface FileRoutesById {
   '/apps/$appId/': typeof AppsAppIdIndexRoute
   '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/apps/$appId/'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/apps/$appId'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   id:
     | '__root__'
     | '/'
@@ -158,6 +170,7 @@ export interface FileRouteTypes {
     | '/apps/$appId/'
     | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -172,6 +185,7 @@ export interface RootRouteChildren {
   AppsAppIdIndexRoute: typeof AppsAppIdIndexRoute
   AdminAppsAppIdCustomFormRoute: typeof AdminAppsAppIdCustomFormRoute
   AdminAppsAppIdIndexRoute: typeof AdminAppsAppIdIndexRoute
+  AdminAppsAppIdCategoryCategoryIdFieldsRoute: typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAppsAppIdCustomFormRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/apps/$appId/category/$categoryId/fields': {
+      id: '/admin/apps/$appId/category/$categoryId/fields'
+      path: '/admin/apps/$appId/category/$categoryId/fields'
+      fullPath: '/admin/apps/$appId/category/$categoryId/fields'
+      preLoaderRoute: typeof AdminAppsAppIdCategoryCategoryIdFieldsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -268,6 +289,8 @@ const rootRouteChildren: RootRouteChildren = {
   AppsAppIdIndexRoute: AppsAppIdIndexRoute,
   AdminAppsAppIdCustomFormRoute: AdminAppsAppIdCustomFormRoute,
   AdminAppsAppIdIndexRoute: AdminAppsAppIdIndexRoute,
+  AdminAppsAppIdCategoryCategoryIdFieldsRoute:
+    AdminAppsAppIdCategoryCategoryIdFieldsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
