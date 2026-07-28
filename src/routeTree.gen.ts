@@ -19,6 +19,7 @@ import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
 import { Route as AdminAppsAppIdIndexRouteImport } from './routes/admin/apps/$appId/index'
+import { Route as AdminAppsAppIdCustomFormRouteImport } from './routes/admin/apps/$appId/custom-form'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -70,6 +71,12 @@ const AdminAppsAppIdIndexRoute = AdminAppsAppIdIndexRouteImport.update({
   path: '/admin/apps/$appId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAppsAppIdCustomFormRoute =
+  AdminAppsAppIdCustomFormRouteImport.update({
+    id: '/admin/apps/$appId/custom-form',
+    path: '/admin/apps/$appId/custom-form',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/apps/': typeof AppsIndexRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
   '/apps/$appId/': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +101,7 @@ export interface FileRoutesByTo {
   '/apps': typeof AppsIndexRoute
   '/admin/apps': typeof AdminAppsIndexRoute
   '/apps/$appId': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId': typeof AdminAppsAppIdIndexRoute
 }
 export interface FileRoutesById {
@@ -106,6 +115,7 @@ export interface FileRoutesById {
   '/apps/': typeof AppsIndexRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
   '/apps/$appId/': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
   '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/apps/'
     | '/admin/apps/'
     | '/apps/$appId/'
+    | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/admin/apps'
     | '/apps/$appId'
+    | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId'
   id:
     | '__root__'
@@ -144,6 +156,7 @@ export interface FileRouteTypes {
     | '/apps/'
     | '/admin/apps/'
     | '/apps/$appId/'
+    | '/admin/apps/$appId/custom-form'
     | '/admin/apps/$appId/'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +170,7 @@ export interface RootRouteChildren {
   AppsIndexRoute: typeof AppsIndexRoute
   AdminAppsIndexRoute: typeof AdminAppsIndexRoute
   AppsAppIdIndexRoute: typeof AppsAppIdIndexRoute
+  AdminAppsAppIdCustomFormRoute: typeof AdminAppsAppIdCustomFormRoute
   AdminAppsAppIdIndexRoute: typeof AdminAppsAppIdIndexRoute
 }
 
@@ -232,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAppsAppIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/apps/$appId/custom-form': {
+      id: '/admin/apps/$appId/custom-form'
+      path: '/admin/apps/$appId/custom-form'
+      fullPath: '/admin/apps/$appId/custom-form'
+      preLoaderRoute: typeof AdminAppsAppIdCustomFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -245,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsIndexRoute: AppsIndexRoute,
   AdminAppsIndexRoute: AdminAppsIndexRoute,
   AppsAppIdIndexRoute: AppsAppIdIndexRoute,
+  AdminAppsAppIdCustomFormRoute: AdminAppsAppIdCustomFormRoute,
   AdminAppsAppIdIndexRoute: AdminAppsAppIdIndexRoute,
 }
 export const routeTree = rootRouteImport
