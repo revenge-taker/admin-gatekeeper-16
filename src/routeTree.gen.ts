@@ -14,11 +14,18 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AppsAppIdRouteImport } from './routes/apps/$appId'
+import { Route as ProductsIdRouteImport } from './routes/products/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
+import { Route as AdminProductsIndexRouteImport } from './routes/admin/products/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
-import { Route as AdminAppsAppIdRouteImport } from './routes/admin/apps/$appId'
+import { Route as AppsAppIdAddProductRouteImport } from './routes/apps/$appId/add-product'
+import { Route as AdminProductsIdRouteImport } from './routes/admin/products/$id'
+import { Route as AdminAppsAppIdIndexRouteImport } from './routes/admin/apps/$appId/index'
+import { Route as AdminAppsAppIdCustomFormRouteImport } from './routes/admin/apps/$appId/custom-form'
+import { Route as AdminAppsAppIdCategoryCategoryIdFieldsRouteImport } from './routes/admin/apps/$appId/category/$categoryId/fields'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -45,9 +52,9 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppsAppIdRoute = AppsAppIdRouteImport.update({
-  id: '/apps/$appId',
-  path: '/apps/$appId',
+const ProductsIdRoute = ProductsIdRouteImport.update({
+  id: '/products/$id',
+  path: '/products/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
@@ -55,9 +62,24 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
+  id: '/admin/global-template',
+  path: '/admin/global-template',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsAppIdIndexRoute = AppsAppIdIndexRouteImport.update({
+  id: '/apps/$appId/',
+  path: '/apps/$appId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProductsIndexRoute = AdminProductsIndexRouteImport.update({
+  id: '/admin/products/',
+  path: '/admin/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAppsIndexRoute = AdminAppsIndexRouteImport.update({
@@ -65,35 +87,71 @@ const AdminAppsIndexRoute = AdminAppsIndexRouteImport.update({
   path: '/admin/apps/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminAppsAppIdRoute = AdminAppsAppIdRouteImport.update({
-  id: '/admin/apps/$appId',
-  path: '/admin/apps/$appId',
+const AppsAppIdAddProductRoute = AppsAppIdAddProductRouteImport.update({
+  id: '/apps/$appId/add-product',
+  path: '/apps/$appId/add-product',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProductsIdRoute = AdminProductsIdRouteImport.update({
+  id: '/admin/products/$id',
+  path: '/admin/products/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAppsAppIdIndexRoute = AdminAppsAppIdIndexRouteImport.update({
+  id: '/admin/apps/$appId/',
+  path: '/admin/apps/$appId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAppsAppIdCustomFormRoute =
+  AdminAppsAppIdCustomFormRouteImport.update({
+    id: '/admin/apps/$appId/custom-form',
+    path: '/admin/apps/$appId/custom-form',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminAppsAppIdCategoryCategoryIdFieldsRoute =
+  AdminAppsAppIdCategoryCategoryIdFieldsRouteImport.update({
+    id: '/admin/apps/$appId/category/$categoryId/fields',
+    path: '/admin/apps/$appId/category/$categoryId/fields',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
-  '/apps/$appId': typeof AppsAppIdRoute
+  '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
-  '/admin/apps/$appId': typeof AdminAppsAppIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
+  '/apps/$appId/': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
+  '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
-  '/apps/$appId': typeof AppsAppIdRoute
+  '/products/$id': typeof ProductsIdRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
-  '/admin/apps/$appId': typeof AdminAppsAppIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps': typeof AdminAppsIndexRoute
+  '/admin/products': typeof AdminProductsIndexRoute
+  '/apps/$appId': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
+  '/admin/apps/$appId': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,12 +159,19 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/users': typeof AdminUsersRoute
-  '/apps/$appId': typeof AppsAppIdRoute
+  '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
-  '/admin/apps/$appId': typeof AdminAppsAppIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
+  '/apps/$appId/': typeof AppsAppIdIndexRoute
+  '/admin/apps/$appId/custom-form': typeof AdminAppsAppIdCustomFormRoute
+  '/admin/apps/$appId/': typeof AdminAppsAppIdIndexRoute
+  '/admin/apps/$appId/category/$categoryId/fields': typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,36 +180,57 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
-    | '/apps/$appId'
+    | '/products/$id'
     | '/admin/'
     | '/apps/'
-    | '/admin/apps/$appId'
+    | '/admin/products/$id'
+    | '/apps/$appId/add-product'
     | '/admin/apps/'
+    | '/admin/products/'
+    | '/apps/$appId/'
+    | '/admin/apps/$appId/custom-form'
+    | '/admin/apps/$appId/'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
-    | '/apps/$appId'
+    | '/products/$id'
     | '/admin'
     | '/apps'
-    | '/admin/apps/$appId'
+    | '/admin/products/$id'
+    | '/apps/$appId/add-product'
     | '/admin/apps'
+    | '/admin/products'
+    | '/apps/$appId'
+    | '/admin/apps/$appId/custom-form'
+    | '/admin/apps/$appId'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/sitemap.xml'
     | '/admin/dashboard'
+    | '/admin/global-template'
     | '/admin/users'
-    | '/apps/$appId'
+    | '/products/$id'
     | '/admin/'
     | '/apps/'
-    | '/admin/apps/$appId'
+    | '/admin/products/$id'
+    | '/apps/$appId/add-product'
     | '/admin/apps/'
+    | '/admin/products/'
+    | '/apps/$appId/'
+    | '/admin/apps/$appId/custom-form'
+    | '/admin/apps/$appId/'
+    | '/admin/apps/$appId/category/$categoryId/fields'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,12 +238,19 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
   AdminUsersRoute: typeof AdminUsersRoute
-  AppsAppIdRoute: typeof AppsAppIdRoute
+  ProductsIdRoute: typeof ProductsIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
-  AdminAppsAppIdRoute: typeof AdminAppsAppIdRoute
+  AdminProductsIdRoute: typeof AdminProductsIdRoute
+  AppsAppIdAddProductRoute: typeof AppsAppIdAddProductRoute
   AdminAppsIndexRoute: typeof AdminAppsIndexRoute
+  AdminProductsIndexRoute: typeof AdminProductsIndexRoute
+  AppsAppIdIndexRoute: typeof AppsAppIdIndexRoute
+  AdminAppsAppIdCustomFormRoute: typeof AdminAppsAppIdCustomFormRoute
+  AdminAppsAppIdIndexRoute: typeof AdminAppsAppIdIndexRoute
+  AdminAppsAppIdCategoryCategoryIdFieldsRoute: typeof AdminAppsAppIdCategoryCategoryIdFieldsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -197,11 +290,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/apps/$appId': {
-      id: '/apps/$appId'
-      path: '/apps/$appId'
-      fullPath: '/apps/$appId'
-      preLoaderRoute: typeof AppsAppIdRouteImport
+    '/products/$id': {
+      id: '/products/$id'
+      path: '/products/$id'
+      fullPath: '/products/$id'
+      preLoaderRoute: typeof ProductsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/users': {
@@ -211,11 +304,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/global-template': {
+      id: '/admin/global-template'
+      path: '/admin/global-template'
+      fullPath: '/admin/global-template'
+      preLoaderRoute: typeof AdminGlobalTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/$appId/': {
+      id: '/apps/$appId/'
+      path: '/apps/$appId'
+      fullPath: '/apps/$appId/'
+      preLoaderRoute: typeof AppsAppIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/products/': {
+      id: '/admin/products/'
+      path: '/admin/products'
+      fullPath: '/admin/products/'
+      preLoaderRoute: typeof AdminProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/apps/': {
@@ -225,11 +339,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAppsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/apps/$appId': {
-      id: '/admin/apps/$appId'
+    '/apps/$appId/add-product': {
+      id: '/apps/$appId/add-product'
+      path: '/apps/$appId/add-product'
+      fullPath: '/apps/$appId/add-product'
+      preLoaderRoute: typeof AppsAppIdAddProductRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/products/$id': {
+      id: '/admin/products/$id'
+      path: '/admin/products/$id'
+      fullPath: '/admin/products/$id'
+      preLoaderRoute: typeof AdminProductsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/apps/$appId/': {
+      id: '/admin/apps/$appId/'
       path: '/admin/apps/$appId'
-      fullPath: '/admin/apps/$appId'
-      preLoaderRoute: typeof AdminAppsAppIdRouteImport
+      fullPath: '/admin/apps/$appId/'
+      preLoaderRoute: typeof AdminAppsAppIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/apps/$appId/custom-form': {
+      id: '/admin/apps/$appId/custom-form'
+      path: '/admin/apps/$appId/custom-form'
+      fullPath: '/admin/apps/$appId/custom-form'
+      preLoaderRoute: typeof AdminAppsAppIdCustomFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/apps/$appId/category/$categoryId/fields': {
+      id: '/admin/apps/$appId/category/$categoryId/fields'
+      path: '/admin/apps/$appId/category/$categoryId/fields'
+      fullPath: '/admin/apps/$appId/category/$categoryId/fields'
+      preLoaderRoute: typeof AdminAppsAppIdCategoryCategoryIdFieldsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -240,12 +382,20 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
   AdminUsersRoute: AdminUsersRoute,
-  AppsAppIdRoute: AppsAppIdRoute,
+  ProductsIdRoute: ProductsIdRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
-  AdminAppsAppIdRoute: AdminAppsAppIdRoute,
+  AdminProductsIdRoute: AdminProductsIdRoute,
+  AppsAppIdAddProductRoute: AppsAppIdAddProductRoute,
   AdminAppsIndexRoute: AdminAppsIndexRoute,
+  AdminProductsIndexRoute: AdminProductsIndexRoute,
+  AppsAppIdIndexRoute: AppsAppIdIndexRoute,
+  AdminAppsAppIdCustomFormRoute: AdminAppsAppIdCustomFormRoute,
+  AdminAppsAppIdIndexRoute: AdminAppsAppIdIndexRoute,
+  AdminAppsAppIdCategoryCategoryIdFieldsRoute:
+    AdminAppsAppIdCategoryCategoryIdFieldsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

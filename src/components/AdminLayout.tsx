@@ -5,12 +5,14 @@ import {
 
   Users,
   LogOut,
-  ShieldCheck,
+  Layers,
+  PackageSearch,
   X,
   Menu,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { DevilLogo } from "@/components/DevilLogo";
 
 type AdminProfile = {
   id: string;
@@ -22,6 +24,8 @@ type AdminProfile = {
 const NAV = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/admin/apps", label: "Apps", icon: LayoutGrid },
+  { to: "/admin/global-template", label: "Global Template", icon: Layers },
+  { to: "/admin/products", label: "Products", icon: PackageSearch },
   { to: "/admin/users", label: "Users", icon: Users },
 ] as const;
 
@@ -77,8 +81,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       {/* Mobile header */}
       <div className="flex items-center justify-between border-b border-sidebar-border bg-sidebar p-4 md:hidden">
         <div className="flex items-center gap-2 text-sidebar-foreground">
-          <ShieldCheck className="h-5 w-5 text-sidebar-primary" />
-          <span className="font-display font-semibold">Admin Panel</span>
+          <DevilLogo className="h-5 w-5 text-primary" />
+          <span className="font-display font-semibold">
+            DEVIL<span className="text-primary">LEDGER</span>
+          </span>
         </div>
         <button
           onClick={() => setMobileOpen((v) => !v)}
@@ -95,8 +101,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         }`}
       >
         <div className="hidden items-center gap-2 md:flex">
-          <ShieldCheck className="h-6 w-6 text-sidebar-primary" />
-          <span className="font-display text-lg font-semibold">Admin Panel</span>
+          <DevilLogo className="h-7 w-7 text-primary" />
+          <span className="font-display text-lg font-bold tracking-tight">
+            DEVIL<span className="text-primary">LEDGER</span>
+          </span>
         </div>
 
         <nav className="flex flex-1 flex-col gap-1">

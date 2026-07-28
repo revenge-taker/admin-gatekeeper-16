@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import { DevilLogo } from "@/components/DevilLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
@@ -11,15 +11,15 @@ import { AuthShell } from "@/components/AuthShell";
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Administrator Access | Nexus Portal" },
+      { title: "Administrator Access | DEVILLEDGER" },
       {
         name: "description",
-        content: "Restricted administrator sign-in for the Nexus Portal control panel.",
+        content: "Restricted administrator sign-in for the DEVILLEDGER control panel.",
       },
-      { property: "og:title", content: "Administrator Access | Nexus Portal" },
+      { property: "og:title", content: "Administrator Access | DEVILLEDGER" },
       {
         property: "og:description",
-        content: "Restricted administrator sign-in for the Nexus Portal control panel.",
+        content: "Restricted administrator sign-in for the DEVILLEDGER control panel.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -75,7 +75,7 @@ function AdminLoginPage() {
 
   return (
     <AuthShell
-      icon={<ShieldCheck className="h-6 w-6 text-primary" />}
+      icon={<DevilLogo className="h-6 w-6 text-primary" />}
       eyebrow="Restricted area"
       title="Administrator access"
       subtitle="Authorised personnel only"

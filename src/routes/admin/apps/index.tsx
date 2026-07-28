@@ -11,13 +11,13 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/admin/apps/")({
   head: () => ({
     meta: [
-      { title: "Apps Management | Nexus Portal" },
+      { title: "Apps Management | DEVILLEDGER" },
       {
         name: "description",
-        content: "Create, edit and remove apps available to Nexus Portal members.",
+        content: "Create, edit and remove apps available to DEVILLEDGER members.",
       },
-      { property: "og:title", content: "Apps Management | Nexus Portal" },
-      { property: "og:description", content: "Manage the app catalogue of Nexus Portal." },
+      { property: "og:title", content: "Apps Management | DEVILLEDGER" },
+      { property: "og:description", content: "Manage the app catalogue of DEVILLEDGER." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex, nofollow" },
