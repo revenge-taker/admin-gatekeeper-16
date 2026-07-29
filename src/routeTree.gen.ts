@@ -17,6 +17,7 @@ import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminProfileRouteImport } from './routes/admin/profile'
 import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
@@ -66,6 +67,11 @@ const ProductsIdRoute = ProductsIdRouteImport.update({
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/admin/profile',
+  path: '/admin/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin': typeof AdminIndexRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin/'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin/'
@@ -252,6 +264,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
+  AdminProfileRoute: typeof AdminProfileRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ProductsIdRoute: typeof ProductsIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -322,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/users'
       fullPath: '/admin/users'
       preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/profile': {
+      id: '/admin/profile'
+      path: '/admin/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/global-template': {
@@ -404,6 +424,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
+  AdminProfileRoute: AdminProfileRoute,
   AdminUsersRoute: AdminUsersRoute,
   ProductsIdRoute: ProductsIdRoute,
   AdminIndexRoute: AdminIndexRoute,
