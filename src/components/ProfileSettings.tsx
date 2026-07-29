@@ -154,13 +154,13 @@ export function ProfileSettings() {
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               New password
             </label>
-            <PasswordField value={password} onChange={setPassword} placeholder="New password" />
+            <PasswordField id="new-password" value={password} onChange={setPassword} placeholder="New password" />
           </div>
           <div>
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
               Confirm password
             </label>
-            <PasswordField value={confirm} onChange={setConfirm} placeholder="Repeat password" />
+            <PasswordField id="confirm-password" value={confirm} onChange={setConfirm} placeholder="Repeat password" />
           </div>
 
           {pwMessage && (
