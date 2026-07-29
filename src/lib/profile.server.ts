@@ -26,3 +26,18 @@ export async function getOwnProfile(
     role: (roleRow?.role ?? "user") as "user" | "admin",
   };
 }
+
+/** Updates the caller's own profile (name + phone) under RLS. */
+export async function updateOwnProfile(
+  supabase: SupabaseClient,
+  userId: string,
+  input: { name: string; phone: string },
+): Promise<OwnProfile> {
+  const { error } = await supabase
+    .from("profiles")
+    .update({ name: input.name, phone: input.phone })
+    .eq("id", userId);
+
+  if (error) throw new Error(error.message);
+  return getOwnProfile(supabase, userId);
+}

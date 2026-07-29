@@ -48,3 +48,18 @@ export const removeUser = createServerFn({ method: "POST" })
     await assertAdmin(context.supabase, context.userId);
     return deleteManagedUser(data.id, context.userId);
   });
+
+export const updateMyProfile = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        name: z.string().min(1).max(120),
+        phone: z.string().max(40).default(""),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { updateOwnProfile } = await import("./profile.server");
+    return updateOwnProfile(context.supabase, context.userId, data);
+  });

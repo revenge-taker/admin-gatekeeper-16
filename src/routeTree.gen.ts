@@ -10,12 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminProfileRouteImport } from './routes/admin/profile'
 import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
@@ -30,6 +32,11 @@ import { Route as AdminAppsAppIdCategoryCategoryIdFieldsRouteImport } from './ro
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -60,6 +67,11 @@ const ProductsIdRoute = ProductsIdRouteImport.update({
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/admin/profile',
+  path: '/admin/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
@@ -118,9 +130,11 @@ const AdminAppsAppIdCategoryCategoryIdFieldsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -137,9 +151,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin': typeof AdminIndexRoute
@@ -157,9 +173,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -178,9 +196,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/profile'
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin/'
@@ -197,9 +217,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/dashboard'
+    | '/profile'
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin'
@@ -216,9 +238,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/profile'
     | '/sitemap.xml'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
     | '/admin/'
@@ -236,9 +260,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  ProfileRoute: typeof ProfileRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
+  AdminProfileRoute: typeof AdminProfileRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ProductsIdRoute: typeof ProductsIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -260,6 +286,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -302,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/users'
       fullPath: '/admin/users'
       preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/profile': {
+      id: '/admin/profile'
+      path: '/admin/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/global-template': {
@@ -380,9 +420,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  ProfileRoute: ProfileRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
+  AdminProfileRoute: AdminProfileRoute,
   AdminUsersRoute: AdminUsersRoute,
   ProductsIdRoute: ProductsIdRoute,
   AdminIndexRoute: AdminIndexRoute,

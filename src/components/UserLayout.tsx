@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, LayoutGrid, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, LayoutGrid, LogOut, Menu, UserCog, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { DevilLogo } from "@/components/DevilLogo";
@@ -7,6 +7,7 @@ import { DevilLogo } from "@/components/DevilLogo";
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/apps", label: "My Apps", icon: LayoutGrid },
+  { to: "/profile", label: "My Profile", icon: UserCog },
 ] as const;
 
 export function UserLayout({ children }: { children: ReactNode }) {
