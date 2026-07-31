@@ -17,12 +17,11 @@ const ThemeContext = createContext<ThemeContextValue>({
 });
 
 /** Inline script that applies the stored theme before first paint. */
-export const themeInitScript = `(function(){try{var t=localStorage.getItem("${STORAGE_KEY}")||"dark";document.documentElement.classList.toggle("dark",t!=="light");document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.classList.add("dark");}})();`;
+export const themeInitScript = `(function(){try{var t=localStorage.getItem("${STORAGE_KEY}")||"dark";document.documentElement.classList.toggle("dark",t!=="light");}catch(e){document.documentElement.classList.add("dark");}})();`;
 
 function apply(theme: Theme) {
   const root = document.documentElement;
   root.classList.toggle("dark", theme === "dark");
-  root.style.colorScheme = theme;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
