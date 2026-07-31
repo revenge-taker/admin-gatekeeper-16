@@ -2,6 +2,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, LayoutGrid, LogOut, Menu, UserCog, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { WolfLogo } from "@/components/WolfLogo";
 
 const NAV = [
@@ -27,6 +28,7 @@ export function UserLayout({ children }: { children: ReactNode }) {
         <span className="font-display text-lg font-bold tracking-tight">
           ALPHA<span className="text-primary"> GRID</span>
         </span>
+        <ThemeToggle className="ml-auto" />
       </div>
 
 
@@ -70,6 +72,8 @@ export function UserLayout({ children }: { children: ReactNode }) {
             ALPHA<span className="text-primary"> GRID</span>
           </span>
         </div>
+        <div className="flex items-center gap-2">
+        <ThemeToggle />
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -77,6 +81,7 @@ export function UserLayout({ children }: { children: ReactNode }) {
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </div>
 
       <aside

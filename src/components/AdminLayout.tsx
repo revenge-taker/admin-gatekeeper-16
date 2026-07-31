@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { WolfLogo } from "@/components/WolfLogo";
 
 type AdminProfile = {
@@ -88,6 +89,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             ALPHA<span className="text-primary"> GRID</span>
           </span>
         </div>
+        <div className="flex items-center gap-2">
+        <ThemeToggle />
         <button
           onClick={() => setMobileOpen((v) => !v)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -95,6 +98,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </div>
 
       <aside
@@ -107,6 +111,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           <span className="font-display text-lg font-bold tracking-tight">
             ALPHA<span className="text-primary"> GRID</span>
           </span>
+          <ThemeToggle className="ml-auto" />
         </div>
 
         <nav className="flex flex-1 flex-col gap-1">
