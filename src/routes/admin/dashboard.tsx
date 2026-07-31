@@ -22,16 +22,16 @@ import { useProtectedRoute } from "@/lib/use-protected-route";
 export const Route = createFileRoute("/admin/dashboard")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard | DEVILLEDGER" },
+      { title: "Admin Dashboard | ALPHA GRID" },
       {
         name: "description",
         content:
-          "Administrator overview of DEVILLEDGER accounts, apps and the product verification queue.",
+          "Administrator overview of ALPHA GRID accounts, apps and the product verification queue.",
       },
-      { property: "og:title", content: "Admin Dashboard | DEVILLEDGER" },
+      { property: "og:title", content: "Admin Dashboard | ALPHA GRID" },
       {
         property: "og:description",
-        content: "Administrator overview of DEVILLEDGER accounts, apps and products.",
+        content: "Administrator overview of ALPHA GRID accounts, apps and products.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

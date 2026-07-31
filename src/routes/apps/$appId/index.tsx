@@ -11,12 +11,12 @@ import { deleteProduct, listMyProducts, productName } from "@/lib/fields";
 export const Route = createFileRoute("/apps/$appId/")({
   head: () => ({
     meta: [
-      { title: "App Products | DEVILLEDGER" },
+      { title: "App Products | ALPHA GRID" },
       {
         name: "description",
-        content: "View and manage the products you submitted for this app in DEVILLEDGER.",
+        content: "View and manage the products you submitted for this app in ALPHA GRID.",
       },
-      { property: "og:title", content: "App Products | DEVILLEDGER" },
+      { property: "og:title", content: "App Products | ALPHA GRID" },
       { property: "og:description", content: "Manage your products for this app." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

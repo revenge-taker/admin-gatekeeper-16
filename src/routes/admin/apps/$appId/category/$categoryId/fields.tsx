@@ -10,12 +10,12 @@ import { listCategories } from "@/lib/apps";
 export const Route = createFileRoute("/admin/apps/$appId/category/$categoryId/fields")({
   head: () => ({
     meta: [
-      { title: "Category Fields | DEVILLEDGER" },
+      { title: "Category Fields | ALPHA GRID" },
       {
         name: "description",
-        content: "Define product form fields that apply to this category in DEVILLEDGER.",
+        content: "Define product form fields that apply to this category in ALPHA GRID.",
       },
-      { property: "og:title", content: "Category Fields | DEVILLEDGER" },
+      { property: "og:title", content: "Category Fields | ALPHA GRID" },
       { property: "og:description", content: "Define product form fields for this category." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

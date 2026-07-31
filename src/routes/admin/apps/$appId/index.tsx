@@ -11,12 +11,12 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/admin/apps/$appId/")({
   head: () => ({
     meta: [
-      { title: "App Categories | DEVILLEDGER" },
+      { title: "App Categories | ALPHA GRID" },
       {
         name: "description",
-        content: "Manage the categories and form fields that belong to this app in DEVILLEDGER.",
+        content: "Manage the categories and form fields that belong to this app in ALPHA GRID.",
       },
-      { property: "og:title", content: "App Categories | DEVILLEDGER" },
+      { property: "og:title", content: "App Categories | ALPHA GRID" },
       { property: "og:description", content: "Manage categories for this app." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

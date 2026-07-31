@@ -10,15 +10,15 @@ import { useProtectedRoute } from "@/lib/use-protected-route";
 export const Route = createFileRoute("/admin/users")({
   head: () => ({
     meta: [
-      { title: "User Management | DEVILLEDGER" },
+      { title: "User Management | ALPHA GRID" },
       {
         name: "description",
-        content: "Create and remove DEVILLEDGER accounts from the administrator user management console.",
+        content: "Create and remove ALPHA GRID accounts from the administrator user management console.",
       },
-      { property: "og:title", content: "User Management | DEVILLEDGER" },
+      { property: "og:title", content: "User Management | ALPHA GRID" },
       {
         property: "og:description",
-        content: "Create and remove DEVILLEDGER accounts.",
+        content: "Create and remove ALPHA GRID accounts.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -7,12 +7,12 @@ import { addGlobalField, deleteGlobalField, listGlobalFields } from "@/lib/field
 export const Route = createFileRoute("/admin/global-template")({
   head: () => ({
     meta: [
-      { title: "Global Template | DEVILLEDGER" },
+      { title: "Global Template | ALPHA GRID" },
       {
         name: "description",
-        content: "Define the global product form fields shared across every app in DEVILLEDGER.",
+        content: "Define the global product form fields shared across every app in ALPHA GRID.",
       },
-      { property: "og:title", content: "Global Template | DEVILLEDGER" },
+      { property: "og:title", content: "Global Template | ALPHA GRID" },
       { property: "og:description", content: "Global product form fields for every app." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

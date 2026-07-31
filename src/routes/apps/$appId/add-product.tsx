@@ -10,12 +10,12 @@ import { buildFormFields, createProduct } from "@/lib/fields";
 export const Route = createFileRoute("/apps/$appId/add-product")({
   head: () => ({
     meta: [
-      { title: "Add Product | DEVILLEDGER" },
+      { title: "Add Product | ALPHA GRID" },
       {
         name: "description",
-        content: "Submit a new product for review inside DEVILLEDGER.",
+        content: "Submit a new product for review inside ALPHA GRID.",
       },
-      { property: "og:title", content: "Add Product | DEVILLEDGER" },
+      { property: "og:title", content: "Add Product | ALPHA GRID" },
       { property: "og:description", content: "Submit a new product for review." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

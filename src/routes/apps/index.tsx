@@ -8,12 +8,12 @@ import { listApps } from "@/lib/apps";
 export const Route = createFileRoute("/apps/")({
   head: () => ({
     meta: [
-      { title: "My Apps | DEVILLEDGER" },
+      { title: "My Apps | ALPHA GRID" },
       {
         name: "description",
-        content: "Browse the apps available to you inside DEVILLEDGER.",
+        content: "Browse the apps available to you inside ALPHA GRID.",
       },
-      { property: "og:title", content: "My Apps | DEVILLEDGER" },
+      { property: "og:title", content: "My Apps | ALPHA GRID" },
       { property: "og:description", content: "Browse the apps available to your account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

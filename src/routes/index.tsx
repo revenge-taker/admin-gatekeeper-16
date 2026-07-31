@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { DevilLogo } from "@/components/DevilLogo";
+import { WolfLogo } from "@/components/WolfLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
@@ -11,15 +11,15 @@ import { AuthShell } from "@/components/AuthShell";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sign In | DEVILLEDGER" },
+      { title: "Sign In | ALPHA GRID" },
       {
         name: "description",
-        content: "Secure sign-in to the DEVILLEDGER member area. Enter your email and password to access your account dashboard.",
+        content: "Secure sign-in to the ALPHA GRID member area. Enter your email and password to access your account dashboard.",
       },
-      { property: "og:title", content: "Sign In | DEVILLEDGER" },
+      { property: "og:title", content: "Sign In | ALPHA GRID" },
       {
         property: "og:description",
-        content: "Secure sign-in to the DEVILLEDGER member area.",
+        content: "Secure sign-in to the ALPHA GRID member area.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -60,12 +60,12 @@ function LoginPage() {
 
   return (
     <AuthShell
-      icon={<DevilLogo className="h-6 w-6 text-primary" />}
-      eyebrow="DEVILLEDGER"
+      icon={<WolfLogo className="h-6 w-6 text-primary" />}
+      eyebrow="ALPHA GRID"
       title="Welcome back"
       subtitle="Sign in to continue to your dashboard"
       brandTitle="Your secure workspace, one sign-in away."
-      brandCopy="DEVILLEDGER keeps member accounts, roles and access in one calm, controlled place."
+      brandCopy="ALPHA GRID keeps member accounts, roles and access in one calm, controlled place."
       highlights={[
         "Encrypted password authentication",
         "Role-aware access to every page",

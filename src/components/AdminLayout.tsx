@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { DevilLogo } from "@/components/DevilLogo";
+import { WolfLogo } from "@/components/WolfLogo";
 
 type AdminProfile = {
   id: string;
@@ -83,9 +83,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       {/* Mobile header */}
       <div className="flex items-center justify-between border-b border-sidebar-border bg-sidebar p-4 md:hidden">
         <div className="flex items-center gap-2 text-sidebar-foreground">
-          <DevilLogo className="h-5 w-5 text-primary" />
+          <WolfLogo className="h-5 w-5 text-primary" />
           <span className="font-display font-semibold">
-            DEVIL<span className="text-primary">LEDGER</span>
+            ALPHA<span className="text-primary"> GRID</span>
           </span>
         </div>
         <button
@@ -103,9 +103,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         }`}
       >
         <div className="hidden items-center gap-2 md:flex">
-          <DevilLogo className="h-7 w-7 text-primary" />
+          <WolfLogo className="h-7 w-7 text-primary" />
           <span className="font-display text-lg font-bold tracking-tight">
-            DEVIL<span className="text-primary">LEDGER</span>
+            ALPHA<span className="text-primary"> GRID</span>
           </span>
         </div>
 

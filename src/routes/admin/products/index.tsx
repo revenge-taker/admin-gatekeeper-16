@@ -10,12 +10,12 @@ import { listAllProducts, productName, type ProductStatus } from "@/lib/fields";
 export const Route = createFileRoute("/admin/products/")({
   head: () => ({
     meta: [
-      { title: "Products Queue | DEVILLEDGER" },
+      { title: "Products Queue | ALPHA GRID" },
       {
         name: "description",
-        content: "Review, verify or cancel every product submitted by DEVILLEDGER members.",
+        content: "Review, verify or cancel every product submitted by ALPHA GRID members.",
       },
-      { property: "og:title", content: "Products Queue | DEVILLEDGER" },
+      { property: "og:title", content: "Products Queue | ALPHA GRID" },
       { property: "og:description", content: "Review every submitted product." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

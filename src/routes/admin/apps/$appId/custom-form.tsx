@@ -8,12 +8,12 @@ import { addCustomAppField, deleteCustomAppField, listCustomAppFields } from "@/
 export const Route = createFileRoute("/admin/apps/$appId/custom-form")({
   head: () => ({
     meta: [
-      { title: "Customize App Form | DEVILLEDGER" },
+      { title: "Customize App Form | ALPHA GRID" },
       {
         name: "description",
-        content: "Define custom product form fields that apply to this app in DEVILLEDGER.",
+        content: "Define custom product form fields that apply to this app in ALPHA GRID.",
       },
-      { property: "og:title", content: "Customize App Form | DEVILLEDGER" },
+      { property: "og:title", content: "Customize App Form | ALPHA GRID" },
       { property: "og:description", content: "Define custom product form fields for this app." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
