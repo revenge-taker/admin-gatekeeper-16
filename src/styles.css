@@ -63,7 +63,6 @@
 
 /* ---------------- ARCTIC MODE (light) ---------------- */
 :root {
-  color-scheme: light;
   --radius: 0.4rem;
 
   --background: oklch(0.981 0.002 247);
@@ -118,7 +117,6 @@
 
 /* ---------------- ALPHA MODE (dark) ---------------- */
 .dark {
-  color-scheme: dark;
   --background: oklch(0.163 0.011 250);
   --foreground: oklch(0.92 0.004 286);
   --card: oklch(0.246 0.011 250);
