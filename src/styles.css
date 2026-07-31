@@ -190,6 +190,11 @@
   background: var(--gradient-auth);
 }
 
+/* Brand-panel text always sits on the deep gradient, so it stays near-white. */
+@utility auth-fg {
+  color: oklch(0.99 0 0);
+}
+
 @utility auth-orb {
   position: absolute;
   border-radius: 9999px;
