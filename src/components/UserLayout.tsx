@@ -2,7 +2,8 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, LayoutGrid, LogOut, Menu, UserCog, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { DevilLogo } from "@/components/DevilLogo";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { WolfLogo } from "@/components/WolfLogo";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -23,10 +24,11 @@ export function UserLayout({ children }: { children: ReactNode }) {
   const nav = (
     <>
       <div className="hidden items-center gap-2 px-1 text-sidebar-foreground md:flex">
-        <DevilLogo className="h-7 w-7 text-primary" />
+        <WolfLogo className="h-7 w-7 text-primary" />
         <span className="font-display text-lg font-bold tracking-tight">
-          DEVIL<span className="text-primary">LEDGER</span>
+          ALPHA<span className="text-primary"> GRID</span>
         </span>
+        <ThemeToggle className="ml-auto" />
       </div>
 
 
@@ -65,11 +67,13 @@ export function UserLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background md:flex-row">
       <div className="flex items-center justify-between border-b border-sidebar-border bg-sidebar p-4 md:hidden">
         <div className="flex items-center gap-2 text-sidebar-foreground">
-          <DevilLogo className="h-5 w-5 text-primary" />
+          <WolfLogo className="h-5 w-5 text-primary" />
           <span className="font-display font-semibold">
-            DEVIL<span className="text-primary">LEDGER</span>
+            ALPHA<span className="text-primary"> GRID</span>
           </span>
         </div>
+        <div className="flex items-center gap-2">
+        <ThemeToggle />
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -77,6 +81,7 @@ export function UserLayout({ children }: { children: ReactNode }) {
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </div>
 
       <aside

@@ -10,12 +10,12 @@ import { listAllProducts, productName, setProductStatus } from "@/lib/fields";
 export const Route = createFileRoute("/admin/products/$id")({
   head: () => ({
     meta: [
-      { title: "Product Review | DEVILLEDGER" },
+      { title: "Product Review | ALPHA GRID" },
       {
         name: "description",
-        content: "Review a submitted product and verify or cancel it inside DEVILLEDGER.",
+        content: "Review a submitted product and verify or cancel it inside ALPHA GRID.",
       },
-      { property: "og:title", content: "Product Review | DEVILLEDGER" },
+      { property: "og:title", content: "Product Review | ALPHA GRID" },
       { property: "og:description", content: "Verify or cancel a submitted product." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

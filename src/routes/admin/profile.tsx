@@ -6,12 +6,12 @@ import { useProtectedRoute } from "@/lib/use-protected-route";
 export const Route = createFileRoute("/admin/profile")({
   head: () => ({
     meta: [
-      { title: "Admin Profile | DEVILLEDGER" },
+      { title: "Admin Profile | ALPHA GRID" },
       {
         name: "description",
-        content: "Administrators can update their DEVILLEDGER name, phone number and password here.",
+        content: "Administrators can update their ALPHA GRID name, phone number and password here.",
       },
-      { property: "og:title", content: "Admin Profile | DEVILLEDGER" },
+      { property: "og:title", content: "Admin Profile | ALPHA GRID" },
       { property: "og:description", content: "Update your administrator account details and password." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

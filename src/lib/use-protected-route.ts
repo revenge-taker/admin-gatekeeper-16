@@ -7,11 +7,12 @@ export type SessionUser = {
   email: string;
 };
 
-export type Guard = "user" | "admin";
+export type Guard = "user" | "admin" | "worker";
 
 /**
  * Client-side route protection. Redirects to the matching login page when the
- * visitor has no session, or when an admin-only page is opened by a normal user.
+ * visitor has no session, or when a role-restricted page is opened by someone
+ * without that role.
  */
 export function useProtectedRoute(guard: Guard) {
   const navigate = useNavigate();
@@ -30,12 +31,12 @@ export function useProtectedRoute(guard: Guard) {
         return;
       }
 
-      if (guard === "admin") {
+      if (guard === "admin" || guard === "worker") {
         const { data: roleRow } = await supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", authUser.id)
-          .eq("role", "admin")
+          .eq("role", guard)
           .maybeSingle();
 
         if (!roleRow) {
@@ -43,6 +44,7 @@ export function useProtectedRoute(guard: Guard) {
           return;
         }
       }
+
 
       if (!active) return;
       setUser({ id: authUser.id, email: authUser.email ?? "" });

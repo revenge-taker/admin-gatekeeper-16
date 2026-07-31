@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { DevilLogo } from "@/components/DevilLogo";
+import { WolfLogo } from "@/components/WolfLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
 import { ButtonSpinnerLabel } from "@/components/ButtonSpinnerLabel";
@@ -11,15 +11,15 @@ import { AuthShell } from "@/components/AuthShell";
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Administrator Access | DEVILLEDGER" },
+      { title: "Administrator Access | ALPHA GRID" },
       {
         name: "description",
-        content: "Restricted administrator sign-in for the DEVILLEDGER control panel.",
+        content: "Restricted administrator sign-in for the ALPHA GRID control panel.",
       },
-      { property: "og:title", content: "Administrator Access | DEVILLEDGER" },
+      { property: "og:title", content: "Administrator Access | ALPHA GRID" },
       {
         property: "og:description",
-        content: "Restricted administrator sign-in for the DEVILLEDGER control panel.",
+        content: "Restricted administrator sign-in for the ALPHA GRID control panel.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -75,7 +75,7 @@ function AdminLoginPage() {
 
   return (
     <AuthShell
-      icon={<DevilLogo className="h-6 w-6 text-primary" />}
+      icon={<WolfLogo className="h-6 w-6 text-primary" />}
       eyebrow="Restricted area"
       title="Administrator access"
       subtitle="Authorised personnel only"

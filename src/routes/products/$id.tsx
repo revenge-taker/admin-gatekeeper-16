@@ -18,12 +18,12 @@ export const Route = createFileRoute("/products/$id")({
   validateSearch: (search: Record<string, unknown>) => ({ edit: search.edit === true || search.edit === "true" }),
   head: () => ({
     meta: [
-      { title: "Product Details | DEVILLEDGER" },
+      { title: "Product Details | ALPHA GRID" },
       {
         name: "description",
-        content: "Track the review status of your submitted product in DEVILLEDGER.",
+        content: "Track the review status of your submitted product in ALPHA GRID.",
       },
-      { property: "og:title", content: "Product Details | DEVILLEDGER" },
+      { property: "og:title", content: "Product Details | ALPHA GRID" },
       { property: "og:description", content: "Track the review status of your product." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
