@@ -92,13 +92,13 @@ function DashboardPage() {
   const products = myProducts ?? [];
   const pending = products.filter((p) => p.status === "under_review").length;
   const verified = products.filter((p) => p.status === "verified").length;
-  const cancelled = products.filter((p) => p.status === "under_review" && false).length;
+  const rejected = products.filter((p) => p.status === "rejected").length;
 
   const stats = [
     { label: "My Products", value: products.length, icon: PackageSearch, tone: "text-primary", ring: "bg-primary/10" },
     { label: "Under review", value: pending, icon: Clock, tone: "text-amber-400", ring: "bg-amber-400/10" },
     { label: "Verified", value: verified, icon: CheckCircle2, tone: "text-emerald-400", ring: "bg-emerald-400/10" },
-    { label: "Cancelled", value: cancelled, icon: XCircle, tone: "text-destructive", ring: "bg-destructive/10" },
+    { label: "Rejected", value: rejected, icon: XCircle, tone: "text-destructive", ring: "bg-destructive/10" },
   ];
 
   const rows = [
