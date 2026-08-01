@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { UserLayout } from "@/components/UserLayout";
+import { DynamicField } from "@/components/DynamicField";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { getApp, listCategories } from "@/lib/apps";
 import { buildFormFields, createProduct } from "@/lib/fields";
@@ -30,6 +31,9 @@ function AddProductPage() {
   const navigate = useNavigate();
 
   const [categoryId, setCategoryId] = useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [imagesCsv, setImagesCsv] = useState("");
   const [values, setValues] = useState<Record<string, string>>({});
   const [error, setError] = useState("");
 
@@ -57,7 +61,18 @@ function AddProductPage() {
       (fields ?? []).forEach((f) => {
         data[f.label] = values[f.label] ?? "";
       });
-      return createProduct({ app_id: appId, category_id: categoryId, data, added_by: user!.id });
+      return createProduct({
+        app_id: appId,
+        category_id: categoryId,
+        title: title.trim(),
+        price: Number(price || 0),
+        images: imagesCsv
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        data,
+        added_by: user!.id,
+      });
     },
     onSuccess: (id) => navigate({ to: "/products/$id", params: { id } }),
     onError: (e: Error) => setError(e.message || "Could not submit product"),
@@ -82,21 +97,22 @@ function AddProductPage() {
         Back to {app?.name ?? "app"}
       </Link>
 
-      <h1 className="mt-4 text-3xl font-bold">Add New Product</h1>
+      <h1 className="mt-4 font-display text-3xl font-bold">Add New Product</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Pick a category, then fill in the generated form. Submissions go to review.
+        Pick a category, then fill in the form. Submissions start as Under Review.
       </p>
 
       <form
         className="panel mt-6 max-w-2xl space-y-5 p-6"
         onSubmit={(e) => {
           e.preventDefault();
+          setError("");
           submit.mutate();
         }}
       >
         <div>
           <label htmlFor="category" className="mb-1.5 block text-sm font-medium">
-            Category
+            Category <span className="text-primary">*</span>
           </label>
           <select
             id="category"
@@ -109,7 +125,7 @@ function AddProductPage() {
             className="field field-focus"
           >
             <option value="">Select a category…</option>
-            {categories?.map((c) => (
+            {(categories ?? []).map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
               </option>
@@ -117,52 +133,71 @@ function AddProductPage() {
           </select>
         </div>
 
-        {categoryId && fieldsLoading && (
-          <p className="text-sm text-muted-foreground">Building form…</p>
-        )}
+        {categoryId && (
+          <>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="title" className="mb-1.5 block text-sm font-medium">
+                  Title <span className="text-primary">*</span>
+                </label>
+                <input
+                  id="title"
+                  required
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="field field-focus"
+                  placeholder="Product title"
+                />
+              </div>
+              <div>
+                <label htmlFor="price" className="mb-1.5 block text-sm font-medium">
+                  Price
+                </label>
+                <input
+                  id="price"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="field field-focus"
+                  placeholder="0.00"
+                />
+              </div>
+            </div>
 
-        {categoryId &&
-          !fieldsLoading &&
-          (fields?.length ? (
-            fields.map((f) => (
+            <div>
+              <label htmlFor="images" className="mb-1.5 block text-sm font-medium">
+                Image URLs (comma separated)
+              </label>
+              <input
+                id="images"
+                value={imagesCsv}
+                onChange={(e) => setImagesCsv(e.target.value)}
+                className="field field-focus"
+                placeholder="https://…/one.jpg, https://…/two.jpg"
+              />
+            </div>
+
+            {fieldsLoading && <p className="text-sm text-muted-foreground">Building form…</p>}
+
+            {(fields ?? []).map((f) => (
               <div key={f.id}>
                 <label htmlFor={f.id} className="mb-1.5 block text-sm font-medium">
                   {f.label}
                   {f.required && <span className="text-primary"> *</span>}
                 </label>
-                {f.field_type === "dropdown" ? (
-                  <select
-                    id={f.id}
-                    required={f.required}
-                    value={values[f.label] ?? ""}
-                    onChange={(e) => setValues({ ...values, [f.label]: e.target.value })}
-                    className="field field-focus"
-                  >
-                    <option value="">Select…</option>
-                    {f.options.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    id={f.id}
-                    required={f.required}
-                    value={values[f.label] ?? ""}
-                    onChange={(e) => setValues({ ...values, [f.label]: e.target.value })}
-                    className="field field-focus"
-                  />
-                )}
+                <DynamicField
+                  field={f}
+                  value={values[f.label] ?? ""}
+                  onChange={(v) => setValues((prev) => ({ ...prev, [f.label]: v }))}
+                />
               </div>
-            ))
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              No fields configured yet for this category.
-            </p>
-          ))}
+            ))}
+          </>
+        )}
 
-        {error && <p className="rounded-lg bg-primary/10 px-3 py-2 text-sm text-primary">{error}</p>}
+        {error && <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
 
         <button
           type="submit"

@@ -15,6 +15,10 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as WorkerProductsRouteImport } from './routes/worker/products'
+import { Route as WorkerNotificationsRouteImport } from './routes/worker/notifications'
+import { Route as WorkerDashboardRouteImport } from './routes/worker/dashboard'
+import { Route as WorkerAppsRouteImport } from './routes/worker/apps'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminProfileRouteImport } from './routes/admin/profile'
@@ -57,6 +61,26 @@ const AppsIndexRoute = AppsIndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerProductsRoute = WorkerProductsRouteImport.update({
+  id: '/worker/products',
+  path: '/worker/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerNotificationsRoute = WorkerNotificationsRouteImport.update({
+  id: '/worker/notifications',
+  path: '/worker/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerDashboardRoute = WorkerDashboardRouteImport.update({
+  id: '/worker/dashboard',
+  path: '/worker/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerAppsRoute = WorkerAppsRouteImport.update({
+  id: '/worker/apps',
+  path: '/worker/apps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsIdRoute = ProductsIdRouteImport.update({
@@ -137,6 +161,10 @@ export interface FileRoutesByFullPath {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/apps': typeof WorkerAppsRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
+  '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -158,6 +186,10 @@ export interface FileRoutesByTo {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/apps': typeof WorkerAppsRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
+  '/worker/products': typeof WorkerProductsRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -180,6 +212,10 @@ export interface FileRoutesById {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/apps': typeof WorkerAppsRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
+  '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -203,6 +239,10 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/apps'
+    | '/worker/dashboard'
+    | '/worker/notifications'
+    | '/worker/products'
     | '/admin/'
     | '/apps/'
     | '/admin/products/$id'
@@ -224,6 +264,10 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/apps'
+    | '/worker/dashboard'
+    | '/worker/notifications'
+    | '/worker/products'
     | '/admin'
     | '/apps'
     | '/admin/products/$id'
@@ -245,6 +289,10 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/apps'
+    | '/worker/dashboard'
+    | '/worker/notifications'
+    | '/worker/products'
     | '/admin/'
     | '/apps/'
     | '/admin/products/$id'
@@ -267,6 +315,10 @@ export interface RootRouteChildren {
   AdminProfileRoute: typeof AdminProfileRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ProductsIdRoute: typeof ProductsIdRoute
+  WorkerAppsRoute: typeof WorkerAppsRoute
+  WorkerDashboardRoute: typeof WorkerDashboardRoute
+  WorkerNotificationsRoute: typeof WorkerNotificationsRoute
+  WorkerProductsRoute: typeof WorkerProductsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
   AdminProductsIdRoute: typeof AdminProductsIdRoute
@@ -321,6 +373,34 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/products': {
+      id: '/worker/products'
+      path: '/worker/products'
+      fullPath: '/worker/products'
+      preLoaderRoute: typeof WorkerProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/notifications': {
+      id: '/worker/notifications'
+      path: '/worker/notifications'
+      fullPath: '/worker/notifications'
+      preLoaderRoute: typeof WorkerNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/dashboard': {
+      id: '/worker/dashboard'
+      path: '/worker/dashboard'
+      fullPath: '/worker/dashboard'
+      preLoaderRoute: typeof WorkerDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/apps': {
+      id: '/worker/apps'
+      path: '/worker/apps'
+      fullPath: '/worker/apps'
+      preLoaderRoute: typeof WorkerAppsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/$id': {
@@ -427,6 +507,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminProfileRoute: AdminProfileRoute,
   AdminUsersRoute: AdminUsersRoute,
   ProductsIdRoute: ProductsIdRoute,
+  WorkerAppsRoute: WorkerAppsRoute,
+  WorkerDashboardRoute: WorkerDashboardRoute,
+  WorkerNotificationsRoute: WorkerNotificationsRoute,
+  WorkerProductsRoute: WorkerProductsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
   AdminProductsIdRoute: AdminProductsIdRoute,

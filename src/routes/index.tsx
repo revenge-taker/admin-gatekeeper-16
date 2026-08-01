@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { getMyRole, ROLE_HOME } from "@/lib/roles";
 import { WolfLogo } from "@/components/WolfLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { seedAdmin } from "@/lib/admin.functions";
@@ -55,7 +56,8 @@ function LoginPage() {
       return;
     }
 
-    navigate({ to: "/dashboard", replace: true });
+    const role = await getMyRole();
+    navigate({ to: ROLE_HOME[role ?? "user"], replace: true });
   };
 
   return (

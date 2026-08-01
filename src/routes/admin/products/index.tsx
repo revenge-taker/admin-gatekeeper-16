@@ -25,7 +25,7 @@ export const Route = createFileRoute("/admin/products/")({
   component: AdminProductsPage,
 });
 
-const FILTERS = ["all", "pending", "verified", "cancelled"] as const;
+const FILTERS = ["all", "under_review", "verified", "rejected"] as const;
 type Filter = (typeof FILTERS)[number];
 
 function AdminProductsPage() {
@@ -67,7 +67,7 @@ function AdminProductsPage() {
                 : "border border-border text-muted-foreground hover:border-primary/60 hover:text-primary"
             }`}
           >
-            {f}
+            {f.replace("_", " ")}
           </button>
         ))}
       </div>
@@ -92,7 +92,7 @@ function AdminProductsPage() {
             <tbody className="divide-y divide-border">
               {rows.map((p) => (
                 <tr key={p.id} className="transition-colors hover:bg-primary/5">
-                  <td className="px-5 py-4 font-medium">{productName(p.data)}</td>
+                  <td className="px-5 py-4 font-medium">{productName(p)}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.app_name}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.category_name}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.user_email}</td>

@@ -100,7 +100,7 @@ function UserAppDetailPage() {
           {products.map((p) => (
             <article key={p.id} className="panel glow-hover flex flex-col gap-3 p-5">
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-display text-base font-semibold">{productName(p.data)}</h3>
+                <h3 className="font-display text-base font-semibold">{productName(p)}</h3>
                 <StatusBadge status={p.status} />
               </div>
               <p className="text-sm text-muted-foreground">{catName(p.category_id)}</p>
