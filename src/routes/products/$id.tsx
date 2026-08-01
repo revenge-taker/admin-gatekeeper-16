@@ -103,11 +103,12 @@ function UserProductPage() {
   }
 
   const statusLabel =
-    product?.status === "pending"
+    product?.status === "under_review"
       ? "Under Review"
       : product?.status === "verified"
         ? "✔ Verified - Live"
-        : `✖ Cancelled: ${product?.rejection_reason || "no reason given"}`;
+        : `✖ Rejected: ${product?.rejection_reason || "no reason given"}`;
+
 
   const categoryName = categories?.find((c) => c.id === product?.category_id)?.name;
 
