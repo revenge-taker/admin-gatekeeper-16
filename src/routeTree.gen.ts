@@ -15,6 +15,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as WorkerDashboardRouteImport } from './routes/worker/dashboard'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminProfileRouteImport } from './routes/admin/profile'
@@ -57,6 +58,11 @@ const AppsIndexRoute = AppsIndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerDashboardRoute = WorkerDashboardRouteImport.update({
+  id: '/worker/dashboard',
+  path: '/worker/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsIdRoute = ProductsIdRouteImport.update({
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$id': typeof ProductsIdRoute
+  '/worker/dashboard': typeof WorkerDashboardRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/dashboard'
     | '/admin/'
     | '/apps/'
     | '/admin/products/$id'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/dashboard'
     | '/admin'
     | '/apps'
     | '/admin/products/$id'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/users'
     | '/products/$id'
+    | '/worker/dashboard'
     | '/admin/'
     | '/apps/'
     | '/admin/products/$id'
@@ -267,6 +279,7 @@ export interface RootRouteChildren {
   AdminProfileRoute: typeof AdminProfileRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ProductsIdRoute: typeof ProductsIdRoute
+  WorkerDashboardRoute: typeof WorkerDashboardRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
   AdminProductsIdRoute: typeof AdminProductsIdRoute
@@ -321,6 +334,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/dashboard': {
+      id: '/worker/dashboard'
+      path: '/worker/dashboard'
+      fullPath: '/worker/dashboard'
+      preLoaderRoute: typeof WorkerDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/$id': {
@@ -427,6 +447,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminProfileRoute: AdminProfileRoute,
   AdminUsersRoute: AdminUsersRoute,
   ProductsIdRoute: ProductsIdRoute,
+  WorkerDashboardRoute: WorkerDashboardRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
   AdminProductsIdRoute: AdminProductsIdRoute,
