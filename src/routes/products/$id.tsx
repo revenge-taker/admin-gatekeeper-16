@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
 import { UserLayout } from "@/components/UserLayout";
 import { StatusBadge } from "@/components/StatusBadge";
+import { DynamicField } from "@/components/DynamicField";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { listCategories } from "@/lib/apps";
 import {
@@ -131,7 +132,7 @@ function UserProductPage() {
         <>
           <header className="panel glow-hover mt-4 flex flex-wrap items-center justify-between gap-4 p-6">
             <div>
-              <h1 className="font-display text-2xl font-bold">{productName(product.data)}</h1>
+              <h1 className="font-display text-2xl font-bold">{productName(product)}</h1>
               <p className="mt-1 text-sm text-muted-foreground">{categoryName ?? ""}</p>
             </div>
             <StatusBadge status={product.status} label={statusLabel} />
@@ -176,30 +177,11 @@ function UserProductPage() {
                     {f.label}
                     {f.required && <span className="text-primary"> *</span>}
                   </label>
-                  {f.field_type === "dropdown" ? (
-                    <select
-                      id={f.id}
-                      required={f.required}
-                      value={values[f.label] ?? ""}
-                      onChange={(e) => setValues({ ...values, [f.label]: e.target.value })}
-                      className="field field-focus"
-                    >
-                      <option value="">Select…</option>
-                      {f.options.map((o) => (
-                        <option key={o} value={o}>
-                          {o}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      id={f.id}
-                      required={f.required}
-                      value={values[f.label] ?? ""}
-                      onChange={(e) => setValues({ ...values, [f.label]: e.target.value })}
-                      className="field field-focus"
-                    />
-                  )}
+                  <DynamicField
+                    field={f}
+                    value={values[f.label] ?? ""}
+                    onChange={(v) => setValues((prev) => ({ ...prev, [f.label]: v }))}
+                  />
                 </div>
               ))}
               <div className="flex gap-2">
