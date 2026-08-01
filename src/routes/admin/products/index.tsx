@@ -67,7 +67,7 @@ function AdminProductsPage() {
                 : "border border-border text-muted-foreground hover:border-primary/60 hover:text-primary"
             }`}
           >
-            {f}
+            {f.replace("_", " ")}
           </button>
         ))}
       </div>
