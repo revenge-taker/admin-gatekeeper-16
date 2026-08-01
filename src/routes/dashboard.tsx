@@ -203,7 +203,7 @@ function DashboardPage() {
                       params={{ id: p.id }}
                       className="block truncate text-sm font-semibold hover:text-primary"
                     >
-                      {productName(p.data)}
+                      {productName(p)}
                     </Link>
                     <p className="truncate text-xs text-muted-foreground">{appName(p.app_id)}</p>
                   </div>

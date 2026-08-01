@@ -72,7 +72,7 @@ function AdminProductDetailPage() {
       ) : (
         <div className="mt-4 grid gap-6 lg:grid-cols-3">
           <section className="panel p-6 lg:col-span-2">
-            <h1 className="font-display text-2xl font-bold">{productName(product.data)}</h1>
+            <h1 className="font-display text-2xl font-bold">{productName(product)}</h1>
             <dl className="mt-6 divide-y divide-border">
               {Object.entries(product.data).map(([k, v]) => (
                 <div key={k} className="flex flex-wrap gap-2 py-3">

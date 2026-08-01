@@ -186,7 +186,7 @@ function AdminDashboardPage() {
                           params={{ id: p.id }}
                           className="font-medium hover:text-primary"
                         >
-                          {productName(p.data)}
+                          {productName(p)}
                         </Link>
                       </td>
                       <td className="py-3 pr-4 text-muted-foreground">{p.app_name}</td>

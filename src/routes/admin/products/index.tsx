@@ -92,7 +92,7 @@ function AdminProductsPage() {
             <tbody className="divide-y divide-border">
               {rows.map((p) => (
                 <tr key={p.id} className="transition-colors hover:bg-primary/5">
-                  <td className="px-5 py-4 font-medium">{productName(p.data)}</td>
+                  <td className="px-5 py-4 font-medium">{productName(p)}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.app_name}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.category_name}</td>
                   <td className="px-5 py-4 text-muted-foreground">{p.user_email}</td>
