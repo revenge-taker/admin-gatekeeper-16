@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Trash2, X, ListChecks, Type } from "lucide-react";
-import { parseOptions, type FieldRow, type FieldType } from "@/lib/fields";
+import {
+  FIELD_TYPES,
+  parseOptions,
+  type FieldRow,
+  type FieldType,
+  type NewField,
+} from "@/lib/fields";
 
 export function FieldManager({
   title,
@@ -15,18 +21,13 @@ export function FieldManager({
   subtitle: string;
   queryKey: unknown[];
   fetchFields: () => Promise<FieldRow[]>;
-  addField: (f: {
-    label: string;
-    field_type: FieldType;
-    options: string[];
-    required: boolean;
-  }) => Promise<void>;
+  addField: (f: NewField) => Promise<void>;
   deleteField: (id: string) => Promise<void>;
 }) {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [label, setLabel] = useState("");
-  const [type, setType] = useState<FieldType>("input");
+  const [type, setType] = useState<FieldType>("text");
   const [optionsCsv, setOptionsCsv] = useState("");
   const [required, setRequired] = useState(false);
   const [error, setError] = useState("");
@@ -36,7 +37,7 @@ export function FieldManager({
   const reset = () => {
     setOpen(false);
     setLabel("");
-    setType("input");
+    setType("text");
     setOptionsCsv("");
     setRequired(false);
     setError("");
@@ -44,7 +45,12 @@ export function FieldManager({
 
   const add = useMutation({
     mutationFn: () =>
-      addField({ label, field_type: type, options: parseOptions(optionsCsv), required }),
+      addField({
+        label,
+        field_type: type,
+        options: type === "select" ? parseOptions(optionsCsv) : [],
+        required,
+      }),
     onSuccess: () => {
       reset();
       queryClient.invalidateQueries({ queryKey });
@@ -56,6 +62,8 @@ export function FieldManager({
     mutationFn: deleteField,
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
   });
+
+  const typeLabel = (t: FieldType) => FIELD_TYPES.find((x) => x.value === t)?.label ?? t;
 
   return (
     <>
@@ -79,7 +87,7 @@ export function FieldManager({
           <div key={f.id} className="flex items-center justify-between gap-3 px-5 py-4">
             <div className="min-w-0">
               <p className="flex items-center gap-2 text-sm font-semibold">
-                {f.field_type === "dropdown" ? (
+                {f.field_type === "select" ? (
                   <ListChecks className="h-4 w-4 text-primary" />
                 ) : (
                   <Type className="h-4 w-4 text-primary" />
@@ -92,9 +100,9 @@ export function FieldManager({
                 )}
               </p>
               <p className="mt-1 truncate text-xs text-muted-foreground">
-                {f.field_type === "dropdown"
+                {f.field_type === "select"
                   ? `Dropdown · ${f.options.join(", ") || "no options"}`
-                  : "Input by user"}
+                  : typeLabel(f.field_type)}
               </p>
             </div>
             <button
@@ -140,31 +148,33 @@ export function FieldManager({
                 />
               </div>
 
-              <fieldset className="space-y-2">
-                <legend className="mb-1.5 text-sm font-medium">Type</legend>
-                <label className="flex cursor-pointer items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="field-type"
-                    checked={type === "input"}
-                    onChange={() => setType("input")}
-                    className="accent-primary"
-                  />
-                  Input by User
-                </label>
-                <label className="flex cursor-pointer items-center gap-2 text-sm">
-                  <input
-                    type="radio"
-                    name="field-type"
-                    checked={type === "dropdown"}
-                    onChange={() => setType("dropdown")}
-                    className="accent-primary"
-                  />
-                  Select from Dropdown
-                </label>
+              <fieldset className="grid gap-2 sm:grid-cols-2">
+                <legend className="mb-1.5 text-sm font-medium">Field type</legend>
+                {FIELD_TYPES.map((t) => (
+                  <label
+                    key={t.value}
+                    className={`flex cursor-pointer items-start gap-2 rounded-lg border p-2.5 text-sm transition-colors ${
+                      type === t.value
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="field-type"
+                      checked={type === t.value}
+                      onChange={() => setType(t.value)}
+                      className="mt-0.5 accent-primary"
+                    />
+                    <span>
+                      <span className="block font-medium">{t.label}</span>
+                      <span className="block text-xs text-muted-foreground">{t.hint}</span>
+                    </span>
+                  </label>
+                ))}
               </fieldset>
 
-              {type === "dropdown" && (
+              {type === "select" && (
                 <div>
                   <label htmlFor="field-options" className="mb-1.5 block text-sm font-medium">
                     Options (comma separated)
