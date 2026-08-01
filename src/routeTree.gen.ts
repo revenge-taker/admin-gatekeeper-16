@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as WorkerProductsRouteImport } from './routes/worker/products'
+import { Route as WorkerNotificationsRouteImport } from './routes/worker/notifications'
 import { Route as WorkerDashboardRouteImport } from './routes/worker/dashboard'
 import { Route as WorkerAppsRouteImport } from './routes/worker/apps'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
@@ -65,6 +66,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const WorkerProductsRoute = WorkerProductsRouteImport.update({
   id: '/worker/products',
   path: '/worker/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkerNotificationsRoute = WorkerNotificationsRouteImport.update({
+  id: '/worker/notifications',
+  path: '/worker/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkerDashboardRoute = WorkerDashboardRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
   '/worker/products': typeof WorkerProductsRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
+  '/worker/notifications': typeof WorkerNotificationsRoute
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
+    | '/worker/notifications'
     | '/worker/products'
     | '/admin/'
     | '/apps/'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
+    | '/worker/notifications'
     | '/worker/products'
     | '/admin'
     | '/apps'
@@ -280,6 +291,7 @@ export interface FileRouteTypes {
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
+    | '/worker/notifications'
     | '/worker/products'
     | '/admin/'
     | '/apps/'
@@ -305,6 +317,7 @@ export interface RootRouteChildren {
   ProductsIdRoute: typeof ProductsIdRoute
   WorkerAppsRoute: typeof WorkerAppsRoute
   WorkerDashboardRoute: typeof WorkerDashboardRoute
+  WorkerNotificationsRoute: typeof WorkerNotificationsRoute
   WorkerProductsRoute: typeof WorkerProductsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -367,6 +380,13 @@ declare module '@tanstack/react-router' {
       path: '/worker/products'
       fullPath: '/worker/products'
       preLoaderRoute: typeof WorkerProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/worker/notifications': {
+      id: '/worker/notifications'
+      path: '/worker/notifications'
+      fullPath: '/worker/notifications'
+      preLoaderRoute: typeof WorkerNotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/worker/dashboard': {
@@ -489,6 +509,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsIdRoute: ProductsIdRoute,
   WorkerAppsRoute: WorkerAppsRoute,
   WorkerDashboardRoute: WorkerDashboardRoute,
+  WorkerNotificationsRoute: WorkerNotificationsRoute,
   WorkerProductsRoute: WorkerProductsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
