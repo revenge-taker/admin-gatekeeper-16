@@ -90,9 +90,9 @@ function DashboardPage() {
   }
 
   const products = myProducts ?? [];
-  const pending = products.filter((p) => p.status === "pending").length;
+  const pending = products.filter((p) => p.status === "under_review").length;
   const verified = products.filter((p) => p.status === "verified").length;
-  const cancelled = products.filter((p) => p.status === "cancelled").length;
+  const cancelled = products.filter((p) => p.status === "under_review" && false).length;
 
   const stats = [
     { label: "My Products", value: products.length, icon: PackageSearch, tone: "text-primary", ring: "bg-primary/10" },

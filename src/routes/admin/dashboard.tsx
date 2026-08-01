@@ -74,9 +74,9 @@ function AdminDashboardPage() {
   const total = users?.length ?? 0;
   const admins = users?.filter((u) => u.role === "admin").length ?? 0;
   const rows = products ?? [];
-  const pending = rows.filter((p) => p.status === "pending").length;
+  const pending = rows.filter((p) => p.status === "under_review").length;
   const verified = rows.filter((p) => p.status === "verified").length;
-  const cancelled = rows.filter((p) => p.status === "cancelled").length;
+  const cancelled = rows.filter((p) => p.status === "rejected").length;
 
   const primaryStats = [
     { label: "Total Users", value: total, icon: UsersIcon, hint: `${admins} admin${admins === 1 ? "" : "s"}` },

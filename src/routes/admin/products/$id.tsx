@@ -40,7 +40,7 @@ function AdminProductDetailPage() {
   const product = products?.find((p) => p.id === id);
 
   const mutate = useMutation({
-    mutationFn: ({ status, why }: { status: "verified" | "cancelled"; why?: string }) =>
+    mutationFn: ({ status, why }: { status: "verified" | "rejected"; why?: string }) =>
       setProductStatus(id, status, why ?? ""),
     onSuccess: () => {
       setReasonOpen(false);
@@ -104,7 +104,7 @@ function AdminProductDetailPage() {
                 <p className="mb-1 text-muted-foreground">Status</p>
                 <StatusBadge status={product.status} />
               </div>
-              {product.status === "cancelled" && product.rejection_reason && (
+              {product.status === "rejected" && product.rejection_reason && (
                 <p className="rounded-lg bg-primary/10 px-3 py-2 text-primary">
                   {product.rejection_reason}
                 </p>
@@ -145,7 +145,7 @@ function AdminProductDetailPage() {
               className="space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                mutate.mutate({ status: "cancelled", why: reason });
+                mutate.mutate({ status: "rejected", why: reason });
               }}
             >
               <div>

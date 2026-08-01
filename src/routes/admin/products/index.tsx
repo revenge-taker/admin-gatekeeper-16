@@ -25,7 +25,7 @@ export const Route = createFileRoute("/admin/products/")({
   component: AdminProductsPage,
 });
 
-const FILTERS = ["all", "pending", "verified", "cancelled"] as const;
+const FILTERS = ["all", "under_review", "verified", "rejected"] as const;
 type Filter = (typeof FILTERS)[number];
 
 function AdminProductsPage() {
