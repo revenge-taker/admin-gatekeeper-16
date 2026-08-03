@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrowseIndexRouteImport } from './routes/browse/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as WorkerProductsRouteImport } from './routes/worker/products'
@@ -51,6 +52,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseIndexRoute = BrowseIndexRouteImport.update({
+  id: '/browse/',
+  path: '/browse/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppsIndexRoute = AppsIndexRouteImport.update({
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
+  '/browse/': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/worker/products': typeof WorkerProductsRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
+  '/browse': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps': typeof AdminAppsIndexRoute
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
+  '/browse/': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin/'
     | '/apps/'
+    | '/browse/'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps/'
@@ -270,6 +280,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin'
     | '/apps'
+    | '/browse'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps'
@@ -295,6 +306,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin/'
     | '/apps/'
+    | '/browse/'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps/'
@@ -321,6 +333,7 @@ export interface RootRouteChildren {
   WorkerProductsRoute: typeof WorkerProductsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
+  BrowseIndexRoute: typeof BrowseIndexRoute
   AdminProductsIdRoute: typeof AdminProductsIdRoute
   AppsAppIdAddProductRoute: typeof AppsAppIdAddProductRoute
   AdminAppsIndexRoute: typeof AdminAppsIndexRoute
@@ -359,6 +372,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse/': {
+      id: '/browse/'
+      path: '/browse'
+      fullPath: '/browse/'
+      preLoaderRoute: typeof BrowseIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/': {
@@ -513,6 +533,7 @@ const rootRouteChildren: RootRouteChildren = {
   WorkerProductsRoute: WorkerProductsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
+  BrowseIndexRoute: BrowseIndexRoute,
   AdminProductsIdRoute: AdminProductsIdRoute,
   AppsAppIdAddProductRoute: AppsAppIdAddProductRoute,
   AdminAppsIndexRoute: AdminAppsIndexRoute,
