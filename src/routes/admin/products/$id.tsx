@@ -6,6 +6,8 @@ import { AdminLayout } from "@/components/AdminLayout";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { listAllProducts, productName, setProductStatus } from "@/lib/fields";
+import { notifyUser } from "@/lib/notify.functions";
+import { logActivity } from "@/lib/notifications";
 
 export const Route = createFileRoute("/admin/products/$id")({
   head: () => ({
