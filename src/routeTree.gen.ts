@@ -21,6 +21,7 @@ import { Route as WorkerNotificationsRouteImport } from './routes/worker/notific
 import { Route as WorkerDashboardRouteImport } from './routes/worker/dashboard'
 import { Route as WorkerAppsRouteImport } from './routes/worker/apps'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
+import { Route as BrowseIdRouteImport } from './routes/browse/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminProfileRouteImport } from './routes/admin/profile'
 import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
@@ -92,6 +93,11 @@ const WorkerAppsRoute = WorkerAppsRouteImport.update({
 const ProductsIdRoute = ProductsIdRouteImport.update({
   id: '/products/$id',
   path: '/products/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseIdRoute = BrowseIdRouteImport.update({
+  id: '/browse/$id',
+  path: '/browse/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/admin/global-template': typeof AdminGlobalTemplateRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/global-template'
     | '/admin/profile'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/admin/global-template'
     | '/admin/profile'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/admin/global-template'
     | '/admin/profile'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -326,6 +338,7 @@ export interface RootRouteChildren {
   AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
   AdminProfileRoute: typeof AdminProfileRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  BrowseIdRoute: typeof BrowseIdRoute
   ProductsIdRoute: typeof ProductsIdRoute
   WorkerAppsRoute: typeof WorkerAppsRoute
   WorkerDashboardRoute: typeof WorkerDashboardRoute
@@ -430,6 +443,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/browse/$id': {
+      id: '/browse/$id'
+      path: '/browse/$id'
+      fullPath: '/browse/$id'
+      preLoaderRoute: typeof BrowseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/admin/users'
@@ -526,6 +546,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
   AdminProfileRoute: AdminProfileRoute,
   AdminUsersRoute: AdminUsersRoute,
+  BrowseIdRoute: BrowseIdRoute,
   ProductsIdRoute: ProductsIdRoute,
   WorkerAppsRoute: WorkerAppsRoute,
   WorkerDashboardRoute: WorkerDashboardRoute,
