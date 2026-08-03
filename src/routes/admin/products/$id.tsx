@@ -6,6 +6,8 @@ import { AdminLayout } from "@/components/AdminLayout";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { listAllProducts, productName, setProductStatus } from "@/lib/fields";
+import { notifyUser } from "@/lib/notify.functions";
+import { logActivity } from "@/lib/notifications";
 
 export const Route = createFileRoute("/admin/products/$id")({
   head: () => ({
@@ -27,10 +29,11 @@ export const Route = createFileRoute("/admin/products/$id")({
 
 function AdminProductDetailPage() {
   const { id } = Route.useParams();
-  const { ready } = useProtectedRoute("admin");
+  const { ready, user } = useProtectedRoute("admin");
   const queryClient = useQueryClient();
   const [reasonOpen, setReasonOpen] = useState(false);
   const [reason, setReason] = useState("");
+  const [toast, setToast] = useState("");
 
   const { data: products } = useQuery({
     queryKey: ["admin-products"],
@@ -40,11 +43,40 @@ function AdminProductDetailPage() {
   const product = products?.find((p) => p.id === id);
 
   const mutate = useMutation({
-    mutationFn: ({ status, why }: { status: "verified" | "rejected"; why?: string }) =>
-      setProductStatus(id, status, why ?? ""),
-    onSuccess: () => {
+    mutationFn: async ({ status, why }: { status: "verified" | "rejected"; why?: string }) => {
+      await setProductStatus(id, status, why ?? "");
+      if (product) {
+        await notifyUser({
+          data: {
+            userId: product.added_by,
+            title: status === "verified" ? "Product verified" : "Product rejected",
+            message:
+              status === "verified"
+                ? `${productName(product)} is now live on the grid.`
+                : `${productName(product)} was rejected: ${why || "no reason given"}`,
+            type: status === "verified" ? "success" : "error",
+            link: `/products/${id}`,
+          },
+        }).catch(() => undefined);
+        await logActivity({
+          userId: user?.id ?? null,
+          actorEmail: user?.email ?? "",
+          action: status === "verified" ? "product.verified" : "product.rejected",
+          entity: "product",
+          entityId: id,
+          details: why ?? "",
+        }).catch(() => undefined);
+      }
+      return status;
+    },
+    onSuccess: (status) => {
       setReasonOpen(false);
       setReason("");
+      setToast(
+        status === "verified"
+          ? "Verified — the member has been emailed and notified."
+          : "Rejected — the member has been notified with your reason.",
+      );
       queryClient.invalidateQueries({ queryKey: ["admin-products"] });
     },
   });
@@ -66,6 +98,12 @@ function AdminProductDetailPage() {
         <ArrowLeft className="h-4 w-4" />
         Back to products
       </Link>
+
+      {toast && (
+        <p className="mt-4 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
+          {toast}
+        </p>
+      )}
 
       {!product ? (
         <p className="mt-6 text-sm text-muted-foreground">Loading product…</p>

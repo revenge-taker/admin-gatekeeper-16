@@ -1,8 +1,10 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
+  Bell,
+  Flag,
+  History,
   LayoutDashboard,
   LayoutGrid,
-
   Users,
   UserCog,
   LogOut,
@@ -29,6 +31,9 @@ const NAV = [
   { to: "/admin/global-template", label: "Global Template", icon: Layers },
   { to: "/admin/products", label: "Products", icon: PackageSearch },
   { to: "/admin/users", label: "Users", icon: Users },
+  { to: "/admin/reports", label: "Reports", icon: Flag },
+  { to: "/admin/activity", label: "Activity Log", icon: History },
+  { to: "/admin/notifications", label: "Notifications", icon: Bell },
   { to: "/admin/profile", label: "My Profile", icon: UserCog },
 ] as const;
 

@@ -20,6 +20,12 @@ import { getMyProfile } from "@/lib/admin.functions";
 import { listApps } from "@/lib/apps";
 import { productName, type ProductRow, type ProductStatus } from "@/lib/fields";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  listMyWishlist,
+  listPopular,
+  listProductsByIds,
+  listRecentlyViewed,
+} from "@/lib/marketplace";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 
 export const Route = createFileRoute("/dashboard")({
@@ -79,6 +85,36 @@ function DashboardPage() {
         app_id: r.app_id,
       }));
     },
+  });
+
+  const { data: viewedIds } = useQuery({
+    queryKey: ["recently-viewed", user?.id],
+    queryFn: () => listRecentlyViewed(user!.id, 6),
+    enabled: ready && !!user,
+  });
+
+  const { data: wishIds } = useQuery({
+    queryKey: ["wishlist", user?.id],
+    queryFn: () => listMyWishlist(user!.id),
+    enabled: ready && !!user,
+  });
+
+  const { data: recentlyViewed } = useQuery({
+    queryKey: ["recently-viewed-products", viewedIds],
+    queryFn: () => listProductsByIds(viewedIds ?? []),
+    enabled: !!viewedIds?.length,
+  });
+
+  const { data: wishProducts } = useQuery({
+    queryKey: ["wishlist-products", wishIds],
+    queryFn: () => listProductsByIds(wishIds ?? []),
+    enabled: !!wishIds?.length,
+  });
+
+  const { data: popular } = useQuery({
+    queryKey: ["popular-products"],
+    queryFn: () => listPopular(6),
+    enabled: ready,
   });
 
   if (!ready) {
@@ -214,6 +250,40 @@ function DashboardPage() {
           )}
         </section>
       </div>
+
+      {[
+        { title: "Recently viewed", items: recentlyViewed ?? [], empty: "Nothing viewed yet." },
+        { title: "My wishlist", items: wishProducts ?? [], empty: "No saved products yet." },
+        { title: "Popular on the grid", items: popular ?? [], empty: "No products yet." },
+      ].map((block) => (
+        <section key={block.title} className="panel mt-6 p-6">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-lg font-semibold">{block.title}</h2>
+            <Link to="/browse" className="text-sm font-medium text-primary hover:underline">
+              Browse all
+            </Link>
+          </div>
+          {block.items.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">{block.empty}</p>
+          ) : (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {block.items.map((p) => (
+                <Link
+                  key={p.id}
+                  to="/browse/$id"
+                  params={{ id: p.id }}
+                  className="rounded-xl border border-border p-4 transition-colors hover:border-primary/60"
+                >
+                  <p className="font-medium">{productName(p)}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {p.app_name} · {p.views} views · {p.wishlist_count} saves
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+      ))}
     </UserLayout>
   );
 }

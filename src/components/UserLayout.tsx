@@ -1,5 +1,15 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, LayoutGrid, LogOut, Menu, UserCog, X } from "lucide-react";
+import {
+  Bell,
+  Heart,
+  LayoutDashboard,
+  LayoutGrid,
+  LogOut,
+  Menu,
+  Store,
+  UserCog,
+  X,
+} from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -7,7 +17,10 @@ import { WolfLogo } from "@/components/WolfLogo";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/browse", label: "Browse", icon: Store },
   { to: "/apps", label: "My Apps", icon: LayoutGrid },
+  { to: "/wishlist", label: "Wishlist", icon: Heart },
+  { to: "/notifications", label: "Notifications", icon: Bell },
   { to: "/profile", label: "My Profile", icon: UserCog },
 ] as const;
 

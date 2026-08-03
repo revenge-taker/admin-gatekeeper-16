@@ -9,10 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrowseIndexRouteImport } from './routes/browse/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as WorkerProductsRouteImport } from './routes/worker/products'
@@ -20,10 +23,14 @@ import { Route as WorkerNotificationsRouteImport } from './routes/worker/notific
 import { Route as WorkerDashboardRouteImport } from './routes/worker/dashboard'
 import { Route as WorkerAppsRouteImport } from './routes/worker/apps'
 import { Route as ProductsIdRouteImport } from './routes/products/$id'
+import { Route as BrowseIdRouteImport } from './routes/browse/$id'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminReportsRouteImport } from './routes/admin/reports'
 import { Route as AdminProfileRouteImport } from './routes/admin/profile'
+import { Route as AdminNotificationsRouteImport } from './routes/admin/notifications'
 import { Route as AdminGlobalTemplateRouteImport } from './routes/admin/global-template'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminActivityRouteImport } from './routes/admin/activity'
 import { Route as AppsAppIdIndexRouteImport } from './routes/apps/$appId/index'
 import { Route as AdminProductsIndexRouteImport } from './routes/admin/products/index'
 import { Route as AdminAppsIndexRouteImport } from './routes/admin/apps/index'
@@ -33,6 +40,11 @@ import { Route as AdminAppsAppIdIndexRouteImport } from './routes/admin/apps/$ap
 import { Route as AdminAppsAppIdCustomFormRouteImport } from './routes/admin/apps/$appId/custom-form'
 import { Route as AdminAppsAppIdCategoryCategoryIdFieldsRouteImport } from './routes/admin/apps/$appId/category/$categoryId/fields'
 
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -43,6 +55,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -51,6 +68,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseIndexRoute = BrowseIndexRouteImport.update({
+  id: '/browse/',
+  path: '/browse/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppsIndexRoute = AppsIndexRouteImport.update({
@@ -88,14 +110,29 @@ const ProductsIdRoute = ProductsIdRouteImport.update({
   path: '/products/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrowseIdRoute = BrowseIdRouteImport.update({
+  id: '/browse/$id',
+  path: '/browse/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProfileRoute = AdminProfileRouteImport.update({
   id: '/admin/profile',
   path: '/admin/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/admin/notifications',
+  path: '/admin/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
@@ -106,6 +143,11 @@ const AdminGlobalTemplateRoute = AdminGlobalTemplateRouteImport.update({
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActivityRoute = AdminActivityRouteImport.update({
+  id: '/admin/activity',
+  path: '/admin/activity',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppsAppIdIndexRoute = AppsAppIdIndexRouteImport.update({
@@ -154,12 +196,18 @@ const AdminAppsAppIdCategoryCategoryIdFieldsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wishlist': typeof WishlistRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -167,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
+  '/browse/': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
@@ -179,12 +228,18 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wishlist': typeof WishlistRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -192,6 +247,7 @@ export interface FileRoutesByTo {
   '/worker/products': typeof WorkerProductsRoute
   '/admin': typeof AdminIndexRoute
   '/apps': typeof AppsIndexRoute
+  '/browse': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps': typeof AdminAppsIndexRoute
@@ -205,12 +261,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/notifications': typeof NotificationsRoute
   '/profile': typeof ProfileRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/wishlist': typeof WishlistRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/global-template': typeof AdminGlobalTemplateRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/browse/$id': typeof BrowseIdRoute
   '/products/$id': typeof ProductsIdRoute
   '/worker/apps': typeof WorkerAppsRoute
   '/worker/dashboard': typeof WorkerDashboardRoute
@@ -218,6 +280,7 @@ export interface FileRoutesById {
   '/worker/products': typeof WorkerProductsRoute
   '/admin/': typeof AdminIndexRoute
   '/apps/': typeof AppsIndexRoute
+  '/browse/': typeof BrowseIndexRoute
   '/admin/products/$id': typeof AdminProductsIdRoute
   '/apps/$appId/add-product': typeof AppsAppIdAddProductRoute
   '/admin/apps/': typeof AdminAppsIndexRoute
@@ -232,12 +295,18 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/notifications'
     | '/profile'
     | '/sitemap.xml'
+    | '/wishlist'
+    | '/admin/activity'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/notifications'
     | '/admin/profile'
+    | '/admin/reports'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -245,6 +314,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin/'
     | '/apps/'
+    | '/browse/'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps/'
@@ -257,12 +327,18 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/dashboard'
+    | '/notifications'
     | '/profile'
     | '/sitemap.xml'
+    | '/wishlist'
+    | '/admin/activity'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/notifications'
     | '/admin/profile'
+    | '/admin/reports'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -270,6 +346,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin'
     | '/apps'
+    | '/browse'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps'
@@ -282,12 +359,18 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/notifications'
     | '/profile'
     | '/sitemap.xml'
+    | '/wishlist'
+    | '/admin/activity'
     | '/admin/dashboard'
     | '/admin/global-template'
+    | '/admin/notifications'
     | '/admin/profile'
+    | '/admin/reports'
     | '/admin/users'
+    | '/browse/$id'
     | '/products/$id'
     | '/worker/apps'
     | '/worker/dashboard'
@@ -295,6 +378,7 @@ export interface FileRouteTypes {
     | '/worker/products'
     | '/admin/'
     | '/apps/'
+    | '/browse/'
     | '/admin/products/$id'
     | '/apps/$appId/add-product'
     | '/admin/apps/'
@@ -308,12 +392,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  NotificationsRoute: typeof NotificationsRoute
   ProfileRoute: typeof ProfileRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WishlistRoute: typeof WishlistRoute
+  AdminActivityRoute: typeof AdminActivityRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminGlobalTemplateRoute: typeof AdminGlobalTemplateRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminProfileRoute: typeof AdminProfileRoute
+  AdminReportsRoute: typeof AdminReportsRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  BrowseIdRoute: typeof BrowseIdRoute
   ProductsIdRoute: typeof ProductsIdRoute
   WorkerAppsRoute: typeof WorkerAppsRoute
   WorkerDashboardRoute: typeof WorkerDashboardRoute
@@ -321,6 +411,7 @@ export interface RootRouteChildren {
   WorkerProductsRoute: typeof WorkerProductsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppsIndexRoute: typeof AppsIndexRoute
+  BrowseIndexRoute: typeof BrowseIndexRoute
   AdminProductsIdRoute: typeof AdminProductsIdRoute
   AppsAppIdAddProductRoute: typeof AppsAppIdAddProductRoute
   AdminAppsIndexRoute: typeof AdminAppsIndexRoute
@@ -333,6 +424,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -347,6 +445,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -359,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse/': {
+      id: '/browse/'
+      path: '/browse'
+      fullPath: '/browse/'
+      preLoaderRoute: typeof BrowseIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/': {
@@ -410,6 +522,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/browse/$id': {
+      id: '/browse/$id'
+      path: '/browse/$id'
+      fullPath: '/browse/$id'
+      preLoaderRoute: typeof BrowseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/admin/users'
@@ -417,11 +536,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/profile': {
       id: '/admin/profile'
       path: '/admin/profile'
       fullPath: '/admin/profile'
       preLoaderRoute: typeof AdminProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/admin/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/global-template': {
@@ -436,6 +569,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/activity': {
+      id: '/admin/activity'
+      path: '/admin/activity'
+      fullPath: '/admin/activity'
+      preLoaderRoute: typeof AdminActivityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/$appId/': {
@@ -500,12 +640,18 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  NotificationsRoute: NotificationsRoute,
   ProfileRoute: ProfileRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WishlistRoute: WishlistRoute,
+  AdminActivityRoute: AdminActivityRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminGlobalTemplateRoute: AdminGlobalTemplateRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
   AdminProfileRoute: AdminProfileRoute,
+  AdminReportsRoute: AdminReportsRoute,
   AdminUsersRoute: AdminUsersRoute,
+  BrowseIdRoute: BrowseIdRoute,
   ProductsIdRoute: ProductsIdRoute,
   WorkerAppsRoute: WorkerAppsRoute,
   WorkerDashboardRoute: WorkerDashboardRoute,
@@ -513,6 +659,7 @@ const rootRouteChildren: RootRouteChildren = {
   WorkerProductsRoute: WorkerProductsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppsIndexRoute: AppsIndexRoute,
+  BrowseIndexRoute: BrowseIndexRoute,
   AdminProductsIdRoute: AdminProductsIdRoute,
   AppsAppIdAddProductRoute: AppsAppIdAddProductRoute,
   AdminAppsIndexRoute: AdminAppsIndexRoute,

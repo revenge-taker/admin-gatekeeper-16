@@ -95,6 +95,22 @@ function AdminDashboardPage() {
     .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
     .slice(0, 6);
 
+  const totalViews = rows.reduce((n, p) => n + p.views, 0);
+  const totalWishlist = rows.reduce((n, p) => n + p.wishlist_count, 0);
+
+  const perApp = (apps ?? []).map((a) => ({
+    name: a.name,
+    count: rows.filter((p) => p.app_id === a.id).length,
+  }));
+  const maxPerApp = Math.max(1, ...perApp.map((a) => a.count));
+
+  const statusTotal = Math.max(1, rows.length);
+  const pct = (n: number) => Math.round((n / statusTotal) * 100);
+  const pie = `conic-gradient(#f59e0b 0% ${pct(pending)}%, #10b981 ${pct(pending)}% ${pct(pending) + pct(verified)}%, #ef4444 ${pct(pending) + pct(verified)}% 100%)`;
+
+  const topViewed = [...rows].sort((a, b) => b.views - a.views).slice(0, 5);
+  const topWished = [...rows].sort((a, b) => b.wishlist_count - a.wishlist_count).slice(0, 5);
+
   return (
     <AdminLayout>
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -200,6 +216,110 @@ function AdminDashboardPage() {
               </table>
             </div>
           )}
+        </section>
+      </div>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="panel glow-hover p-5">
+          <p className="text-sm text-muted-foreground">Total views</p>
+          <p className="mt-2 font-display text-3xl font-bold">{totalViews}</p>
+        </div>
+        <div className="panel glow-hover p-5">
+          <p className="text-sm text-muted-foreground">Total wishlist saves</p>
+          <p className="mt-2 font-display text-3xl font-bold">{totalWishlist}</p>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+        <section className="panel p-6">
+          <h2 className="font-display text-lg font-semibold">Products per app</h2>
+          {perApp.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">No apps yet.</p>
+          ) : (
+            <ul className="mt-5 space-y-3">
+              {perApp.map((a) => (
+                <li key={a.name}>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">{a.name}</span>
+                    <span className="text-muted-foreground">{a.count}</span>
+                  </div>
+                  <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-secondary">
+                    <div
+                      className="h-full rounded-full bg-primary"
+                      style={{ width: `${(a.count / maxPerApp) * 100}%` }}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="panel p-6">
+          <h2 className="font-display text-lg font-semibold">Status split</h2>
+          <div className="mt-5 flex items-center gap-5">
+            <div
+              className="h-28 w-28 shrink-0 rounded-full"
+              style={{ background: pie }}
+              role="img"
+              aria-label="Product status distribution"
+            />
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-500" /> Under review · {pending}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Verified · {verified}
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-500" /> Rejected · {rejected}
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <section className="panel p-6">
+          <h2 className="font-display text-lg font-semibold">Top 5 most viewed</h2>
+          <ol className="mt-4 space-y-2 text-sm">
+            {topViewed.map((p) => (
+              <li key={p.id} className="flex items-center justify-between gap-3">
+                <Link
+                  to="/admin/products/$id"
+                  params={{ id: p.id }}
+                  className="font-medium hover:text-primary"
+                >
+                  {productName(p)}
+                </Link>
+                <span className="text-muted-foreground">{p.views} views</span>
+              </li>
+            ))}
+            {topViewed.length === 0 && (
+              <li className="text-muted-foreground">No products yet.</li>
+            )}
+          </ol>
+        </section>
+
+        <section className="panel p-6">
+          <h2 className="font-display text-lg font-semibold">Top 5 most wishlisted</h2>
+          <ol className="mt-4 space-y-2 text-sm">
+            {topWished.map((p) => (
+              <li key={p.id} className="flex items-center justify-between gap-3">
+                <Link
+                  to="/admin/products/$id"
+                  params={{ id: p.id }}
+                  className="font-medium hover:text-primary"
+                >
+                  {productName(p)}
+                </Link>
+                <span className="text-muted-foreground">{p.wishlist_count} saves</span>
+              </li>
+            ))}
+            {topWished.length === 0 && (
+              <li className="text-muted-foreground">No products yet.</li>
+            )}
+          </ol>
         </section>
       </div>
     </AdminLayout>
