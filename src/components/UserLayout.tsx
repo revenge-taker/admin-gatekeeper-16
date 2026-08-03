@@ -1,5 +1,15 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, LayoutGrid, LogOut, Menu, UserCog, X } from "lucide-react";
+import {
+  Bell,
+  Heart,
+  LayoutDashboard,
+  LayoutGrid,
+  LogOut,
+  Menu,
+  Store,
+  UserCog,
+  X,
+} from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
