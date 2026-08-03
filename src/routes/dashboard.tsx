@@ -81,6 +81,36 @@ function DashboardPage() {
     },
   });
 
+  const { data: viewedIds } = useQuery({
+    queryKey: ["recently-viewed", user?.id],
+    queryFn: () => listRecentlyViewed(user!.id, 6),
+    enabled: ready && !!user,
+  });
+
+  const { data: wishIds } = useQuery({
+    queryKey: ["wishlist", user?.id],
+    queryFn: () => listMyWishlist(user!.id),
+    enabled: ready && !!user,
+  });
+
+  const { data: recentlyViewed } = useQuery({
+    queryKey: ["recently-viewed-products", viewedIds],
+    queryFn: () => listProductsByIds(viewedIds ?? []),
+    enabled: !!viewedIds?.length,
+  });
+
+  const { data: wishProducts } = useQuery({
+    queryKey: ["wishlist-products", wishIds],
+    queryFn: () => listProductsByIds(wishIds ?? []),
+    enabled: !!wishIds?.length,
+  });
+
+  const { data: popular } = useQuery({
+    queryKey: ["popular-products"],
+    queryFn: () => listPopular(6),
+    enabled: ready,
+  });
+
   if (!ready) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
