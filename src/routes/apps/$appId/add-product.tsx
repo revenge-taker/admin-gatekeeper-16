@@ -7,6 +7,8 @@ import { DynamicField } from "@/components/DynamicField";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { getApp, listCategories } from "@/lib/apps";
 import { buildFormFields, createProduct } from "@/lib/fields";
+import { notifyAdmins } from "@/lib/notify.functions";
+import { logActivity } from "@/lib/notifications";
 
 export const Route = createFileRoute("/apps/$appId/add-product")({
   head: () => ({
