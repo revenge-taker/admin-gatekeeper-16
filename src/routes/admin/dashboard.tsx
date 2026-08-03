@@ -95,6 +95,22 @@ function AdminDashboardPage() {
     .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
     .slice(0, 6);
 
+  const totalViews = rows.reduce((n, p) => n + p.views, 0);
+  const totalWishlist = rows.reduce((n, p) => n + p.wishlist_count, 0);
+
+  const perApp = (apps ?? []).map((a) => ({
+    name: a.name,
+    count: rows.filter((p) => p.app_id === a.id).length,
+  }));
+  const maxPerApp = Math.max(1, ...perApp.map((a) => a.count));
+
+  const statusTotal = Math.max(1, rows.length);
+  const pct = (n: number) => Math.round((n / statusTotal) * 100);
+  const pie = `conic-gradient(#f59e0b 0% ${pct(pending)}%, #10b981 ${pct(pending)}% ${pct(pending) + pct(verified)}%, #ef4444 ${pct(pending) + pct(verified)}% 100%)`;
+
+  const topViewed = [...rows].sort((a, b) => b.views - a.views).slice(0, 5);
+  const topWished = [...rows].sort((a, b) => b.wishlist_count - a.wishlist_count).slice(0, 5);
+
   return (
     <AdminLayout>
       <div className="flex flex-wrap items-end justify-between gap-4">
