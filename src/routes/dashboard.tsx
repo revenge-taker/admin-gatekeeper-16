@@ -250,6 +250,40 @@ function DashboardPage() {
           )}
         </section>
       </div>
+
+      {[
+        { title: "Recently viewed", items: recentlyViewed ?? [], empty: "Nothing viewed yet." },
+        { title: "My wishlist", items: wishProducts ?? [], empty: "No saved products yet." },
+        { title: "Popular on the grid", items: popular ?? [], empty: "No products yet." },
+      ].map((block) => (
+        <section key={block.title} className="panel mt-6 p-6">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-lg font-semibold">{block.title}</h2>
+            <Link to="/browse" className="text-sm font-medium text-primary hover:underline">
+              Browse all
+            </Link>
+          </div>
+          {block.items.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">{block.empty}</p>
+          ) : (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {block.items.map((p) => (
+                <Link
+                  key={p.id}
+                  to="/browse/$id"
+                  params={{ id: p.id }}
+                  className="rounded-xl border border-border p-4 transition-colors hover:border-primary/60"
+                >
+                  <p className="font-medium">{productName(p)}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {p.app_name} · {p.views} views · {p.wishlist_count} saves
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+      ))}
     </UserLayout>
   );
 }
