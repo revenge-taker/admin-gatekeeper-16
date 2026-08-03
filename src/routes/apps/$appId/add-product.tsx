@@ -61,7 +61,7 @@ function AddProductPage() {
       (fields ?? []).forEach((f) => {
         data[f.label] = values[f.label] ?? "";
       });
-      return createProduct({
+      const newId = await createProduct({
         app_id: appId,
         category_id: categoryId,
         title: title.trim(),
@@ -73,6 +73,26 @@ function AddProductPage() {
         data,
         added_by: user!.id,
       });
+
+      await notifyAdmins({
+        data: {
+          title: "New product submitted",
+          message: `${title.trim() || "A product"} is waiting for review.`,
+          type: "info",
+          link: "/admin/products",
+        },
+      }).catch(() => undefined);
+
+      await logActivity({
+        userId: user!.id,
+        actorEmail: user!.email,
+        action: "product.created",
+        entity: "product",
+        entityId: newId,
+        details: title.trim(),
+      }).catch(() => undefined);
+
+      return newId;
     },
     onSuccess: (id) => navigate({ to: "/products/$id", params: { id } }),
     onError: (e: Error) => setError(e.message || "Could not submit product"),
