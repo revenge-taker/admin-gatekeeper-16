@@ -20,6 +20,12 @@ import { getMyProfile } from "@/lib/admin.functions";
 import { listApps } from "@/lib/apps";
 import { productName, type ProductRow, type ProductStatus } from "@/lib/fields";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  listMyWishlist,
+  listPopular,
+  listProductsByIds,
+  listRecentlyViewed,
+} from "@/lib/marketplace";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 
 export const Route = createFileRoute("/dashboard")({
