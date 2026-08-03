@@ -99,6 +99,12 @@ function AdminProductDetailPage() {
         Back to products
       </Link>
 
+      {toast && (
+        <p className="mt-4 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
+          {toast}
+        </p>
+      )}
+
       {!product ? (
         <p className="mt-6 text-sm text-muted-foreground">Loading product…</p>
       ) : (
