@@ -17,7 +17,10 @@ import { WolfLogo } from "@/components/WolfLogo";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/browse", label: "Browse", icon: Store },
   { to: "/apps", label: "My Apps", icon: LayoutGrid },
+  { to: "/wishlist", label: "Wishlist", icon: Heart },
+  { to: "/notifications", label: "Notifications", icon: Bell },
   { to: "/profile", label: "My Profile", icon: UserCog },
 ] as const;
 
