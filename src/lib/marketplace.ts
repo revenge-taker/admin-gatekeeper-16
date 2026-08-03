@@ -186,3 +186,49 @@ export async function resolveReport(id: string) {
   const { error } = await supabase.from("reports").update({ resolved: true }).eq("id", id);
   if (error) throw new Error(error.message);
 }
+
+/* ---------------- single marketplace product ---------------- */
+
+export async function getMarketProduct(id: string): Promise<MarketProduct | null> {
+  const { data, error } = await supabase
+    .from("products")
+    .select(PRODUCT_COLS)
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) return null;
+  const row = data as unknown as ProductRow;
+
+  const [{ data: app }, { data: cat }, { data: seller }, { data: ratings }] = await Promise.all([
+    supabase.from("apps").select("name").eq("id", row.app_id).maybeSingle(),
+    supabase.from("categories").select("name").eq("id", row.category_id).maybeSingle(),
+    supabase.from("profiles").select("name").eq("id", row.added_by).maybeSingle(),
+    supabase.from("ratings").select("rating").eq("product_id", id),
+  ]);
+
+  const list = ratings ?? [];
+  const sum = list.reduce((acc, r) => acc + r.rating, 0);
+
+  return {
+    ...row,
+    images: Array.isArray(row.images) ? row.images : [],
+    app_name: app?.name ?? "—",
+    category_name: cat?.name ?? "—",
+    seller_name: seller?.name ?? "Member",
+    avg_rating: list.length ? Math.round((sum / list.length) * 10) / 10 : 0,
+    rating_count: list.length,
+  };
+}
+
+/** Verified products ordered by views, for "popular" sections. */
+export async function listPopular(limit = 6): Promise<MarketProduct[]> {
+  const all = await listMarketProducts();
+  return [...all].sort((a, b) => b.views - a.views).slice(0, limit);
+}
+
+export async function listProductsByIds(ids: string[]): Promise<MarketProduct[]> {
+  if (!ids.length) return [];
+  const all = await listMarketProducts();
+  const set = new Set(ids);
+  return all.filter((p) => set.has(p.id));
+}
