@@ -9,7 +9,8 @@ export type ManagedUser = {
   name: string;
   email: string;
   phone: string;
-  role: "user" | "admin";
+  role: "user" | "admin" | "worker";
+  is_verified?: boolean;
 };
 
 async function getAdmin() {
@@ -70,7 +71,7 @@ export async function listAllUsers(): Promise<ManagedUser[]> {
   const admin = await getAdmin();
 
   const [{ data: profiles }, { data: roles }] = await Promise.all([
-    admin.from("profiles").select("id, name, email, phone, created_at").order("created_at"),
+    admin.from("profiles").select("id, name, email, phone, created_at, is_verified").order("created_at"),
     admin.from("user_roles").select("user_id, role"),
   ]);
 
@@ -81,7 +82,8 @@ export async function listAllUsers(): Promise<ManagedUser[]> {
     name: p.name,
     email: p.email,
     phone: p.phone,
-    role: (roleMap.get(p.id) ?? "user") as "user" | "admin",
+    role: (roleMap.get(p.id) ?? "user") as "user" | "admin" | "worker",
+    is_verified: p.is_verified ?? false,
   }));
 }
 
