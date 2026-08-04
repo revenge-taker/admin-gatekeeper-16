@@ -1,14 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { UserLayout } from "@/components/UserLayout";
 import { ProductCard } from "@/components/ProductCard";
 import { useProtectedRoute } from "@/lib/use-protected-route";
-import { listMarketProducts } from "@/lib/marketplace";
+import { listMarketProducts, listMyWishlist, toggleWishlist } from "@/lib/marketplace";
+import { productName } from "@/lib/fields";
 import { listApps } from "@/lib/apps";
 
 export const Route = createFileRoute("/browse/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: typeof search["q"] === "string" ? (search["q"] as string) : "",
+  }),
   head: () => ({
     meta: [
       { title: "Browse the Grid | ALPHA GRID" },
@@ -34,8 +38,10 @@ const SORTS = [
 ] as const;
 
 function BrowsePage() {
-  const { ready } = useProtectedRoute("user");
-  const [q, setQ] = useState("");
+  const { ready, user } = useProtectedRoute("user");
+  const { q: initialQ } = Route.useSearch();
+  const queryClient = useQueryClient();
+  const [q, setQ] = useState(initialQ ?? "");
   const [appId, setAppId] = useState("");
   const [category, setCategory] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -45,6 +51,22 @@ function BrowsePage() {
     queryKey: ["market-products"],
     queryFn: listMarketProducts,
     enabled: ready,
+  });
+
+  const { data: wishlistIds } = useQuery({
+    queryKey: ["wishlist", user?.id],
+    queryFn: () => listMyWishlist(user!.id),
+    enabled: ready && !!user,
+  });
+  const saved = wishlistIds ?? [];
+
+  const toggle = useMutation({
+    mutationFn: ({ id, next }: { id: string; next: boolean }) =>
+      toggleWishlist(id, user!.id, next),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist", user?.id] });
+      queryClient.invalidateQueries({ queryKey: ["market-products"] });
+    },
   });
 
   const { data: apps } = useQuery({ queryKey: ["apps"], queryFn: listApps, enabled: ready });
