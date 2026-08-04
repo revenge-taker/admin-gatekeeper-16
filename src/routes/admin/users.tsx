@@ -41,6 +41,8 @@ function AdminUsersPage() {
   const [form, setForm] = useState(EMPTY);
   const [formError, setFormError] = useState("");
   const [confirmId, setConfirmId] = useState<string | null>(null);
+  const [tab, setTab] = useState<"workers" | "users">("workers");
+  const [viewUser, setViewUser] = useState<ManagedUser | null>(null);
 
   const { data: users, isLoading } = useQuery({
     queryKey: ["admin-users"],
