@@ -1,12 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Search, Eye, Heart, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import { UserLayout } from "@/components/UserLayout";
+import { ProductCard } from "@/components/ProductCard";
 import { useProtectedRoute } from "@/lib/use-protected-route";
 import { listMarketProducts } from "@/lib/marketplace";
 import { listApps } from "@/lib/apps";
-import { productName } from "@/lib/fields";
 
 export const Route = createFileRoute("/browse/")({
   head: () => ({
