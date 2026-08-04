@@ -2,10 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { Plus, Trash2, X } from "lucide-react";
+import { Eye, Plus, Trash2, X } from "lucide-react";
 import { AdminLayout } from "@/components/AdminLayout";
 import { addUser, getUsers, removeUser } from "@/lib/admin.functions";
+import { getUserInsights } from "@/lib/user-insights";
 import { useProtectedRoute } from "@/lib/use-protected-route";
+
+type ManagedUser = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: "user" | "admin" | "worker";
+  is_verified?: boolean;
+};
 
 export const Route = createFileRoute("/admin/users")({
   head: () => ({
