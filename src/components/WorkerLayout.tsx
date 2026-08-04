@@ -27,6 +27,7 @@ export function WorkerLayout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
+  const unread = useUnreadCount();
 
   const logout = async () => {
     await supabase.auth.signOut();
