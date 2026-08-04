@@ -44,6 +44,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const unread = useUnreadCount();
 
   useEffect(() => {
     let active = true;
