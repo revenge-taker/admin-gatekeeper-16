@@ -17,6 +17,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { WolfLogo } from "@/components/WolfLogo";
+import { useUnreadCount } from "@/lib/use-unread";
 
 type AdminProfile = {
   id: string;
