@@ -289,3 +289,80 @@ function AdminUsersPage() {
     </AdminLayout>
   );
 }
+
+function UserDetailModal({ user, onClose }: { user: ManagedUser; onClose: () => void }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ["user-insights", user.id],
+    queryFn: () => getUserInsights(user.id),
+  });
+
+  const stats = [
+    ["Total products", data?.totalProducts ?? 0],
+    ["Verified", data?.verified ?? 0],
+    ["Under review", data?.underReview ?? 0],
+    ["Rejected", data?.rejected ?? 0],
+    ["Total views", data?.totalViews ?? 0],
+    ["Wishlisted", data?.totalWishlistOnMyProducts ?? 0],
+  ] as const;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4">
+      <div className="panel max-h-[85vh] w-full max-w-2xl overflow-y-auto p-6">
+        <div className="mb-5 flex items-start justify-between gap-3">
+          <div>
+            <h2 className="font-display text-xl font-bold">{user.name || "Unnamed member"}</h2>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded-full bg-primary/10 px-2.5 py-1 font-semibold text-primary">
+                {user.role}
+              </span>
+              <span
+                className={`rounded-full px-2.5 py-1 font-semibold ${
+                  user.is_verified
+                    ? "bg-accent/15 text-accent"
+                    : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                {user.is_verified ? "Verified member" : "Not verified"}
+              </span>
+              {user.phone && <span className="text-muted-foreground">{user.phone}</span>}
+            </div>
+          </div>
+          <button onClick={onClose} aria-label="Close">
+            <X className="h-5 w-5 text-muted-foreground" />
+          </button>
+        </div>
+
+        {isLoading ? (
+          <p className="text-sm text-muted-foreground">Loading member insights…</p>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {stats.map(([label, value]) => (
+                <div key={label} className="rounded-xl border border-border bg-muted/40 p-4">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
+                  <p className="font-display text-xl font-bold">{value}</p>
+                </div>
+              ))}
+            </div>
+
+            <h3 className="mt-6 font-display text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              Wishlist ({data?.wishlistProducts.length ?? 0})
+            </h3>
+            {(data?.wishlistProducts.length ?? 0) === 0 ? (
+              <p className="mt-2 text-sm text-muted-foreground">Nothing saved yet.</p>
+            ) : (
+              <ul className="mt-2 divide-y divide-border rounded-xl border border-border">
+                {data?.wishlistProducts.map((p) => (
+                  <li key={p.id} className="px-4 py-3 text-sm">
+                    {p.title}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
