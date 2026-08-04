@@ -75,12 +75,16 @@ function AdminUsersPage() {
     );
   }
 
+  const rows = (users ?? []).filter((u) =>
+    tab === "workers" ? u.role === "worker" : u.role !== "worker",
+  );
+
   return (
     <AdminLayout>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold">Users</h1>
-          <p className="mt-2 text-muted-foreground">Manage who can access the portal.</p>
+          <h1 className="font-display text-3xl font-bold">Users</h1>
+          <p className="mt-2 text-muted-foreground">Manage who can access the grid.</p>
         </div>
         <button onClick={() => setOpen(true)} className="btn-primary gap-2">
           <Plus className="h-4 w-4" />
@@ -88,7 +92,28 @@ function AdminUsersPage() {
         </button>
       </div>
 
-      <div className="panel mt-8 overflow-x-auto">
+      <div className="mt-6 inline-flex rounded-xl border border-border bg-card p-1">
+        {(
+          [
+            ["workers", "Workers"],
+            ["users", "Normal Users"],
+          ] as const
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
+              tab === key
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="panel mt-4 overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
             <tr>
@@ -106,7 +131,14 @@ function AdminUsersPage() {
                 </td>
               </tr>
             )}
-            {users?.map((u) => (
+            {!isLoading && rows.length === 0 && (
+              <tr>
+                <td colSpan={4} className="px-5 py-8 text-center text-muted-foreground">
+                  No accounts in this tab yet.
+                </td>
+              </tr>
+            )}
+            {rows.map((u) => (
               <tr key={u.id} className="border-b border-border last:border-0">
                 <td className="px-5 py-4 font-medium">{u.name || "—"}</td>
                 <td className="px-5 py-4 text-muted-foreground">{u.email}</td>
@@ -115,13 +147,22 @@ function AdminUsersPage() {
                     className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
                       u.role === "admin"
                         ? "bg-primary/10 text-primary"
-                        : "bg-secondary text-secondary-foreground"
+                        : u.role === "worker"
+                          ? "bg-accent/15 text-accent"
+                          : "bg-secondary text-secondary-foreground"
                     }`}
                   >
                     {u.role}
                   </span>
                 </td>
                 <td className="px-5 py-4 text-right">
+                  <button
+                    onClick={() => setViewUser(u)}
+                    className="mr-2 inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1.5 text-xs font-medium transition-colors hover:border-primary/60 hover:text-primary"
+                  >
+                    <Eye className="h-3.5 w-3.5" />
+                    View
+                  </button>
                   {u.id === user?.id ? (
                     <span className="text-xs text-muted-foreground">You</span>
                   ) : (
@@ -140,6 +181,9 @@ function AdminUsersPage() {
           </tbody>
         </table>
       </div>
+
+      {viewUser && <UserDetailModal user={viewUser} onClose={() => setViewUser(null)} />}
+
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4">
