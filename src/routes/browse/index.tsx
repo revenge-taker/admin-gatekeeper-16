@@ -1,14 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Search, Eye, Heart, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import { UserLayout } from "@/components/UserLayout";
+import { ProductCard } from "@/components/ProductCard";
 import { useProtectedRoute } from "@/lib/use-protected-route";
-import { listMarketProducts } from "@/lib/marketplace";
-import { listApps } from "@/lib/apps";
+import { listMarketProducts, listMyWishlist, toggleWishlist } from "@/lib/marketplace";
 import { productName } from "@/lib/fields";
+import { listApps } from "@/lib/apps";
 
 export const Route = createFileRoute("/browse/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: typeof search["q"] === "string" ? (search["q"] as string) : "",
+  }),
   head: () => ({
     meta: [
       { title: "Browse the Grid | ALPHA GRID" },
@@ -34,8 +38,10 @@ const SORTS = [
 ] as const;
 
 function BrowsePage() {
-  const { ready } = useProtectedRoute("user");
-  const [q, setQ] = useState("");
+  const { ready, user } = useProtectedRoute("user");
+  const { q: initialQ } = Route.useSearch();
+  const queryClient = useQueryClient();
+  const [q, setQ] = useState(initialQ ?? "");
   const [appId, setAppId] = useState("");
   const [category, setCategory] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -45,6 +51,22 @@ function BrowsePage() {
     queryKey: ["market-products"],
     queryFn: listMarketProducts,
     enabled: ready,
+  });
+
+  const { data: wishlistIds } = useQuery({
+    queryKey: ["wishlist", user?.id],
+    queryFn: () => listMyWishlist(user!.id),
+    enabled: ready && !!user,
+  });
+  const saved = wishlistIds ?? [];
+
+  const toggle = useMutation({
+    mutationFn: ({ id, next }: { id: string; next: boolean }) =>
+      toggleWishlist(id, user!.id, next),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist", user?.id] });
+      queryClient.invalidateQueries({ queryKey: ["market-products"] });
+    },
   });
 
   const { data: apps } = useQuery({ queryKey: ["apps"], queryFn: listApps, enabled: ready });
@@ -160,49 +182,12 @@ function BrowsePage() {
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {rows.map((p) => (
-            <Link
+            <ProductCard
               key={p.id}
-              to="/browse/$id"
-              params={{ id: p.id }}
-              className="panel glow-hover overflow-hidden transition-transform hover:-translate-y-0.5"
-            >
-              <div className="aspect-[16/10] w-full overflow-hidden bg-muted">
-                {p.images[0] ? (
-                  <img
-                    src={p.images[0]}
-                    alt={productName(p)}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                    No image
-                  </div>
-                )}
-              </div>
-              <div className="p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display font-semibold">{productName(p)}</h3>
-                  <span className="shrink-0 text-sm font-bold text-primary">
-                    {p.price ? `$${p.price}` : "—"}
-                  </span>
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {p.app_name} · {p.category_name}
-                </p>
-                <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <Eye className="h-3.5 w-3.5" /> {p.views}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Heart className="h-3.5 w-3.5" /> {p.wishlist_count}
-                  </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Star className="h-3.5 w-3.5" /> {p.avg_rating || "—"}
-                  </span>
-                </div>
-              </div>
-            </Link>
+              product={p}
+              wishlisted={saved.includes(p.id)}
+              onToggleWishlist={(id, next) => toggle.mutate({ id, next })}
+            />
           ))}
         </div>
       )}

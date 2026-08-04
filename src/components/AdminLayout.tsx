@@ -17,6 +17,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { WolfLogo } from "@/components/WolfLogo";
+import { useUnreadCount } from "@/lib/use-unread";
 
 type AdminProfile = {
   id: string;
@@ -43,6 +44,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const unread = useUnreadCount();
 
   useEffect(() => {
     let active = true;
@@ -135,6 +137,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
               >
                 <Icon className="h-4 w-4" />
                 {label}
+                {to === "/admin/notifications" && unread > 0 && (
+                  <span className="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-bold text-primary-foreground">
+                    {unread}
+                  </span>
+                )}
               </Link>
             );
           })}
