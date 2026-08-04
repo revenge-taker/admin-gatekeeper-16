@@ -13,6 +13,7 @@ import { useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { WolfLogo } from "@/components/WolfLogo";
+import { useUnreadCount } from "@/lib/use-unread";
 
 const NAV = [
   { to: "/worker/dashboard", label: "Dashboard", icon: LayoutDashboard },
